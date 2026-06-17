@@ -159,6 +159,20 @@ footer{background:var(--pale);border-top:1px solid var(--border);padding:36px 24
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes scaleIn{from{opacity:0;transform:scale(0.94);}to{opacity:1;transform:scale(1);}}
+
+/* COMPARISON TABLE */
+.comp-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.5;min-width:640px;}
+.comp-table thead tr{background:var(--ink);}
+.comp-table thead th{padding:10px 12px;text-align:left;color:white;font-weight:600;letter-spacing:0.05em;font-size:9px;text-transform:uppercase;border:1px solid rgba(255,255,255,0.1);vertical-align:bottom;}
+.comp-table thead th.comp-pm{background:var(--oa);color:white;}
+.comp-table thead th.comp-row-hdr{background:var(--ink2);width:120px;min-width:100px;}
+.comp-table tbody tr{border-bottom:1px solid var(--border);transition:background 0.15s;}
+.comp-table tbody tr:hover{background:var(--pale);}
+.comp-table tbody td{padding:9px 12px;color:var(--ink2);vertical-align:top;border:1px solid var(--border);font-size:10px;}
+.comp-table tbody td.comp-row-hdr{background:var(--pale);font-weight:600;color:var(--ink);font-size:9px;letter-spacing:0.04em;text-transform:uppercase;}
+.comp-table tbody td.comp-pm{background:#F0EEFB;font-weight:500;color:var(--oa);}
+.comp-table tbody tr:nth-child(even) td.comp-pm{background:#E8E5F5;}
+
 </style>
 </head>
 <body>
@@ -172,6 +186,7 @@ footer{background:var(--pale);border-top:1px solid var(--border);padding:36px 24
   </div>
   <ul class="nav-links">
     <li><a href="#programme">Papers</a></li>
+    <li><a href="#comparison">Compare</a></li>
     <li><a href="#domains">Domains</a></li>
     <li><a href="#tools">Tools</a></li>
     <li><a href="#survey">Survey</a></li>
@@ -315,6 +330,102 @@ footer{background:var(--pale);border-top:1px solid var(--border);padding:36px 24
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- COMPARISON TABLE -->
+<section id="comparison">
+  <div class="inner">
+    <span class="eyebrow reveal">Conceptual Positioning</span>
+    <h2 class="s-title reveal">How Performance Medicine<br>relates to adjacent fields</h2>
+    <p class="s-lead reveal">Performance Medicine is conceptually distinct from Sports and Exercise Medicine, Lifestyle Medicine, and Preventive Medicine — though it draws on all three. The table below maps key differences and areas of overlap.</p>
+    <div class="reveal" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th class="comp-row-hdr">Domain / issue</th>
+            <th class="comp-pm">Performance Medicine</th>
+            <th>Sport &amp; Exercise Medicine</th>
+            <th>Lifestyle Medicine</th>
+            <th>Preventive Medicine</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="comp-row-hdr">Conceptual field</td>
+            <td class="comp-pm">Emerging integrative field concerned with coordinated health optimisation and performance enhancement across high-demand human systems</td>
+            <td>Established clinical specialty focused on physical activity, sport-related health, exercise prescription, and musculoskeletal or activity-related care</td>
+            <td>Emerging stand-alone field centred on behavioural and lifestyle determinants of health and chronic disease risk</td>
+            <td>Established public health / medical field concerned with disease prevention, risk reduction, screening, and population or systems-level prevention</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Primary orientation</td>
+            <td class="comp-pm">Health and performance together</td>
+            <td>Clinical sport, exercise, and musculoskeletal care, plus exercise as medicine</td>
+            <td>Behaviour change and whole-person health optimisation</td>
+            <td>Prevention of disease, morbidity, and population risk</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Typical populations</td>
+            <td class="comp-pm">Athletes, teams, coaches, performance staff, tactical or military populations, executives, and other high-demand performers</td>
+            <td>Athletes, physically active individuals, general patients with exercise- or sport-related issues</td>
+            <td>General population, at-risk individuals, and patients requiring lifestyle modification</td>
+            <td>General population, defined risk groups, occupational groups, and public health populations</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Main unit of analysis</td>
+            <td class="comp-pm">Integrated performance system</td>
+            <td>Individual patient / athlete, sometimes team or service</td>
+            <td>Individual lifestyle and behavioural profile</td>
+            <td>Individual risk, population risk, and prevention systems</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Typical aims</td>
+            <td class="comp-pm">Readiness, resilience, sustainable performance, reduced decrement, integrated support, system functioning</td>
+            <td>Diagnosis, treatment, rehabilitation, return to activity, exercise prescription, athlete health</td>
+            <td>Improved health behaviours, reduced disease risk, enhanced quality of life, sustainable lifestyle change</td>
+            <td>Prevention of disease onset or progression, population screening, risk factor reduction, policy development</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">System model</td>
+            <td class="comp-pm">Layered architecture: domains → components → governance → context (collective, integrated)</td>
+            <td>Largely episodic and consultation-based; team models emerging</td>
+            <td>Preventive pathway model; patient-centred; behaviour-change focus</td>
+            <td>Public health systems model; screening pathways; population intervention</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Governance / accreditation</td>
+            <td class="comp-pm">No unified framework or accreditation yet identified — primary evidence gap (C6)</td>
+            <td>FSEM · CSEM · National sports medicine bodies · WADA</td>
+            <td>ACLM · BSLM · National equivalents · Primary care pathways</td>
+            <td>Established within public health, occupational health, and preventive medicine frameworks</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Evidence base</td>
+            <td class="comp-pm">Predominantly conceptual and low-level (Level III–V); no randomised trials for the integrated model</td>
+            <td>Robust within-domain; systematic reviews and RCTs for many conditions</td>
+            <td>Growing base; RCTs for lifestyle interventions; primary care evidence</td>
+            <td>Strong epidemiological and trial evidence base for preventive interventions</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Conceptual distinctiveness</td>
+            <td class="comp-pm">Distinct by virtue of integrated architecture, performance orientation, and system-level governance (C7)</td>
+            <td>Medically-led; primarily injury and illness focus; less performance-system emphasis</td>
+            <td>Disease-prevention and behaviour-change focus; not performance-oriented</td>
+            <td>Population and prevention focus; not oriented to performance optimisation</td>
+          </tr>
+          <tr>
+            <td class="comp-row-hdr">Overlap with PM</td>
+            <td class="comp-pm" style="font-style:italic;color:var(--muted);">—</td>
+            <td>SEM contributes domain expertise to PM; shares athletic populations; injury and load management are PM domains</td>
+            <td>LM provides behavioural and lifestyle evidence that underpins PM's health-optimisation functions</td>
+            <td>Preventive orientation is a shared value; PM extends prevention into active performance optimisation</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--light);margin-top:12px;">Table 1. Comparison of Performance Medicine and adjacent fields of practice. ACLM: American College of Lifestyle Medicine. BSLM: British Society of Lifestyle Medicine. CSEM: College of Sport, Exercise and Musculoskeletal Medicine. FSEM: Faculty of Sport and Exercise Medicine. RCT: randomised controlled trial. WADA: World Anti-Doping Agency. C6, C7: claim reference numbers from the PM1 evidence synthesis.</p>
     </div>
   </div>
 </section>
