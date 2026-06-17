@@ -1,0 +1,514 @@
+{
+  "_meta": {
+    "document": "STRIKERS_WEBPAGE_DESIGN_HANDOFF",
+    "version": "2.0",
+    "date": "June 2026",
+    "purpose": "Complete lossless handoff of the STRIKERS research landing page design system, architecture, components, and functions. Load into a new Claude chat to build or adapt a new research landing page for a different study under the same STRIKERS design system.",
+    "opening_instruction": "I am building a new STRIKERS Elite Sports Group research landing page. This JSON contains the complete design system, component architecture, and function specifications from the Performance Medicine landing page. Adapt all content for [NEW STUDY NAME] while keeping the design system, layout patterns, and functional components identical. Read the entire JSON before starting."
+  },
+  "project_context": {
+    "organisation": "STRIKERS Elite Sports Group, Dublin, Ireland",
+    "co_institution": "University of St Andrews, St Andrews, UK",
+    "chief_investigator": "Dr Andrew J Hall",
+    "ci_email": "ajh52@st-andrews.ac.uk",
+    "ci_linkedin": "https://www.linkedin.com/in/andrewhallortho",
+    "github_account": "andrewhallorthosports",
+    "google_analytics_account": "STRIKERS Elite Sports Group",
+    "note": "Each new study gets its own GitHub repo, GA Property, and GA Stream. The GA account is shared."
+  },
+  "logos_and_brand_assets": {
+    "primary_logo": {
+      "file": "STRIKERS_St_Andrews_Combined_Logo.png",
+      "description": "Combined horizontal logo \u2014 St Andrews crest left, vertical grey divider, strikerselite sports injury group dublin right",
+      "nav_height": "38px",
+      "footer_height": "44px",
+      "use": "Nav (left side) and footer (centred) \u2014 single asset replaces separate logos",
+      "background": "White or light only \u2014 logo has no padding, place on white/pale backgrounds"
+    },
+    "partner_banner": {
+      "file": "Screenshot_2026-06-17_at_13_07_45.png",
+      "description": "Full-width horizontal strip of collaborative institution logos including Cricket Scotland, DP World Tour, Sunshine Tour, Aspetar Mediclinic, Fortius Clinic, Sport and Exercise Scotland, Commonwealth Games Glasgow 2026, International Olympic Committee, Scottish Network, STRIKERS Elite",
+      "placement": "Between hero section and programme/papers section",
+      "label": "Collaborative institutions and partners",
+      "style": "White background, 1px border top and bottom, 36px logo height, horizontally scrollable on mobile",
+      "note": "Reuse same banner for all STRIKERS pages \u2014 it represents the overarching group partnerships"
+    },
+    "qr_code_generation": {
+      "library": "qrcode[pil] Python library",
+      "fill_color": "#1A1840",
+      "back_color": "white",
+      "error_correction": "ERROR_CORRECT_H",
+      "box_size": 12,
+      "border": 3,
+      "output_size": "1200x1200px for print",
+      "note": "Generate a new QR code for each study pointing to that study's landing page URL. The QR on the webpage itself should point to the survey URL."
+    }
+  },
+  "design_system": {
+    "palette": {
+      "ink": {
+        "hex": "#0E0C28",
+        "var": "--ink",
+        "use": "Primary text, nav links active, dark buttons"
+      },
+      "ink2": {
+        "hex": "#2C2A4A",
+        "var": "--ink2",
+        "use": "Body text secondary, abstract text"
+      },
+      "muted": {
+        "hex": "#6B6888",
+        "var": "--muted",
+        "use": "Secondary text, descriptions, lead paragraphs"
+      },
+      "light": {
+        "hex": "#9896B0",
+        "var": "--light",
+        "use": "Eyebrows, labels, captions, footer text"
+      },
+      "border": {
+        "hex": "#E2E0F0",
+        "var": "--border",
+        "use": "All card borders, dividers, table lines"
+      },
+      "pale": {
+        "hex": "#F4F3FC",
+        "var": "--pale",
+        "use": "Section backgrounds, card hover, row headers"
+      },
+      "bg": {
+        "hex": "#FAFAFA",
+        "var": "--bg",
+        "use": "Page background"
+      },
+      "white": {
+        "hex": "#FFFFFF",
+        "var": "--white",
+        "use": "Cards, nav background, content areas"
+      },
+      "note": "The four quadrant colours and OA colour below are PMIF-specific. Adapt for other study frameworks."
+    },
+    "pmif_palette": {
+      "med": {
+        "hex": "#6040B4",
+        "use": "Medical quadrant / PM1 tag"
+      },
+      "psy": {
+        "hex": "#3452C0",
+        "use": "Psychological quadrant"
+      },
+      "ali": {
+        "hex": "#1A7888",
+        "use": "Allied Health and Scientific / PM2 tag / email button"
+      },
+      "tec": {
+        "hex": "#364888",
+        "use": "Technical quadrant"
+      },
+      "oa": {
+        "hex": "#4A3898",
+        "use": "Overarching Aspects / PMIF arch-card / hero title accent / comparison table PM column"
+      },
+      "pm1_header": {
+        "hex": "#4A2B82",
+        "use": "PM1 poster header / PM1 poster View button"
+      },
+      "pm2_header": {
+        "hex": "#1A1840",
+        "use": "PM2 poster header / PM2 poster View button"
+      }
+    },
+    "typography": {
+      "body_font": "Inter",
+      "body_source": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap",
+      "mono_font": "JetBrains Mono",
+      "body_weights_used": [
+        300,
+        400,
+        500,
+        600,
+        700,
+        800
+      ],
+      "mono_weights_used": [
+        300,
+        400,
+        500,
+        600,
+        700
+      ],
+      "body_use": "Section titles (800), hero title (800), body prose (400), lead text (300)",
+      "mono_use": "ALL labels, eyebrows, buttons, tags, codes, abstract text, table content, captions, nav links, footer text, drawer headers",
+      "anti_aliasing": "-webkit-font-smoothing: antialiased on body",
+      "letter_spacing": {
+        "eyebrow": "0.2em",
+        "button": "0.1em",
+        "tag": "0.14em",
+        "nav_link": "0.06-0.08em",
+        "label": "0.12-0.18em"
+      }
+    },
+    "spacing_system": {
+      "section_padding": "72px 24px",
+      "inner_max_width_mobile": "640px",
+      "inner_max_width_desktop": "720px (via @media min-width:768px)",
+      "card_padding": "16px",
+      "card_head_padding": "16px 16px 12px",
+      "cell_margins_docx": "top:80 bottom:80 left:120 right:120 (DXA units)"
+    },
+    "border_radius": {
+      "cards": "4px",
+      "buttons": "3px",
+      "qr_block": "6px",
+      "drawer": "3px",
+      "small_elements": "2-3px"
+    },
+    "shadows": {
+      "card_hover": "0 5px 20px rgba(14,12,40,0.07)",
+      "hero_image": "drop-shadow(0 8px 40px rgba(74,56,152,0.18))",
+      "none_by_default": true
+    }
+  },
+  "page_architecture": {
+    "file_type": "Single self-contained HTML file",
+    "all_assets_embedded": "All images base64 encoded inline \u2014 no external image requests",
+    "external_dependencies": [
+      "Google Fonts CDN",
+      "Google Analytics gtag.js"
+    ],
+    "approximate_file_size": "3-4MB (dominated by base64 image data)",
+    "css_location": "Inline <style> tag in <head>",
+    "js_location": "Inline <script> tag at end of <body>",
+    "no_frameworks": "Vanilla JS only \u2014 no React, Vue, jQuery etc",
+    "mobile_first": true,
+    "viewport_meta": "width=device-width, initial-scale=1.0, user-scalable=yes",
+    "css_architecture": {
+      "approach": "CSS custom properties (variables) for palette, flat class naming",
+      "variables_defined_on": ":root",
+      "responsive_breakpoint": "@media(min-width:768px) for desktop widening",
+      "animation_approach": "CSS @keyframes + IntersectionObserver for scroll reveals",
+      "no_css_framework": "No Tailwind, Bootstrap etc \u2014 pure custom CSS"
+    },
+    "nav": {
+      "position": "fixed \u2014 always visible when scrolling",
+      "height": "52px",
+      "z_index": 300,
+      "background": "rgba(250,250,250,0.96)",
+      "backdrop_filter": "blur(14px)",
+      "border_bottom": "1px solid var(--border)",
+      "left_content": "Combined STRIKERS + St Andrews logo (38px height)",
+      "right_content": "Nav links \u2014 JetBrains Mono 9px uppercase letter-spacing 0.06em",
+      "nav_links": "Anchor links to page sections \u2014 Papers | Compare | Domains | Tools | Survey (adapt for new study)",
+      "mobile_behaviour": "nav-left has min-width:0 and overflow:hidden to prevent cutoff on narrow screens",
+      "gap": "14px between logo and links"
+    },
+    "sections_template": [
+      {
+        "id": "hero",
+        "purpose": "First impression \u2014 study figure dominant, brief title and tagline",
+        "required": true,
+        "components": [
+          "eyebrow text",
+          "h1 title with accent colour on key word",
+          "subtitle p",
+          "main study figure (image)",
+          "domain annotation strips (2x2 or 4x1 on desktop)",
+          "CTA button to survey section",
+          "scroll cue"
+        ],
+        "figure_treatment": "drop-shadow(0 8px 40px rgba(74,56,152,0.18)), width min(520px,94vw)",
+        "animations": "All elements fadeUp sequential, figure scaleIn at 0.4s",
+        "domain_strips": "2-col mobile / 4-col desktop grid of small cards with left border colour matching quadrant, JetBrains Mono 8px content"
+      },
+      {
+        "id": "partner_banner",
+        "purpose": "Show institutional partnerships \u2014 trust signal between hero and content",
+        "required": true,
+        "components": [
+          "label text",
+          "full-width scrollable logo strip"
+        ],
+        "placement": "Immediately after hero, before papers section",
+        "reuse": "Same banner image across all STRIKERS pages"
+      },
+      {
+        "id": "programme",
+        "anchor": "#programme",
+        "nav_label": "Papers",
+        "purpose": "Full abstract(s) with poster access",
+        "required": true,
+        "components_per_paper": [
+          "paper-card with left border colour (by paper type)",
+          "paper-tag (JetBrains Mono 8px uppercase)",
+          "paper title (Inter 13px bold)",
+          "abstract body \u2014 all sections with abs-lbl + abs-txt in JetBrains Mono 10px 300 weight",
+          "poster-btns bar (View poster | Download poster | Share poster)",
+          "poster-drawer (inline image viewer, dark background, scrollable)"
+        ],
+        "abstract_sections": [
+          "Background",
+          "Objectives",
+          "Design",
+          "Setting",
+          "Sources",
+          "Outcomes",
+          "Results",
+          "Conclusions"
+        ],
+        "poster_drawer_behaviour": "toggleDrawer(id) \u2014 classList.toggle open, scrollIntoView on open"
+      },
+      {
+        "id": "comparison",
+        "anchor": "#comparison",
+        "nav_label": "Compare",
+        "purpose": "Position the study field relative to adjacent disciplines",
+        "required": false,
+        "note": "Include if the study introduces or positions a new field. Omit for purely empirical studies.",
+        "components": [
+          "eyebrow",
+          "title",
+          "lead paragraph",
+          "horizontally scrollable table",
+          "footnote with acronym key"
+        ],
+        "table_design": {
+          "study_column_style": "background:#F0EEFB (light purple), color:var(--oa), font-weight:500 \u2014 visually dominant",
+          "row_header_style": "background:var(--pale), font-weight:600, uppercase, 9px",
+          "header_row": "background:var(--ink), white text",
+          "mobile": "overflow-x:auto parent, min-width:640px on table",
+          "hover": "tbody tr:hover background var(--pale)"
+        }
+      },
+      {
+        "id": "domains",
+        "anchor": "#domains",
+        "nav_label": "Domains",
+        "purpose": "Show the study framework structure in detail",
+        "required": true,
+        "note": "Adapt quad-grid for the specific framework of the new study. If no quadrant structure, use a list or different grid.",
+        "components": [
+          "eyebrow",
+          "title",
+          "lead",
+          "2x2 quad-grid with coloured panels",
+          "OA note label",
+          "3-col OA panel strip"
+        ],
+        "quad_panel_design": "border-radius 3px, relative position for ghost number (38px 0.08 opacity), JetBrains Mono 8.5px uppercase h3, domain items 10.5px Inter"
+      },
+      {
+        "id": "tools",
+        "anchor": "#tools",
+        "nav_label": "Tools",
+        "purpose": "Provide downloadable outputs and inline readers",
+        "required": false,
+        "note": "Include if the study produced tools, forms, or documents for download.",
+        "arch_card_pattern": {
+          "structure": "border-left 3px solid colour + card header (tag + h3) + card body (p + spec-list + tool-btns)",
+          "download_buttons": "dl-btn class \u2014 coloured background, white text, JetBrains Mono 9px",
+          "inline_reader": "view-btn opens os-drawer \u2014 dark header with title and close button, scrollable page images with lazy loading",
+          "spec_list": "dashed border-bottom rows, sp-dot 5px circle + JetBrains Mono 9px text"
+        }
+      },
+      {
+        "id": "survey",
+        "anchor": "#survey",
+        "nav_label": "Survey",
+        "purpose": "Primary conversion \u2014 survey participation + secondary sharing and contact",
+        "required": true,
+        "components": [
+          "eyebrow (ali colour)",
+          "title split across two lines",
+          "lead paragraph",
+          "QR code block (pale background, border, 148px QR image, JetBrains Mono label)",
+          "Primary CTA: Take the survey \u2192 (s-btn-primary, ink background, full width max 280px)",
+          "Secondary group: Share survey | Share page | Email | LinkedIn (s-btn-sm, outline style, flex-wrap row)"
+        ],
+        "share_api": {
+          "mobile": "navigator.share() \u2014 triggers native iOS/Android share sheet",
+          "desktop_fallback": "navigator.clipboard.writeText() \u2014 copies URL, shows confirmation",
+          "confirmation": "share-confirm div \u2014 show class for 3s then remove",
+          "email_button": "mailto: link with pre-populated subject line",
+          "linkedin_button": "target=_blank link to CI LinkedIn profile"
+        },
+        "survey_url": "REPLACE_WITH_NEW_STUDY_SURVEY_URL",
+        "qr_points_to": "The landing page URL (not the survey URL \u2014 survey URL is on the page itself)"
+      }
+    ],
+    "footer": {
+      "background": "var(--pale)",
+      "border_top": "1px solid var(--border)",
+      "content": [
+        "Combined logo (44px)",
+        "Institution names",
+        "Conference/venue",
+        "CI name and email (mailto link)",
+        "Development caveat"
+      ],
+      "padding": "36px 24px",
+      "text_style": "JetBrains Mono 9px var(--light) line-height 1.7"
+    }
+  },
+  "interactive_components": {
+    "scroll_reveal": {
+      "class": "reveal",
+      "mechanism": "IntersectionObserver threshold 0.08",
+      "entry_animation": "opacity 0\u21921, translateY 14px\u21920, transition 0.5s ease",
+      "apply_to": "All section eyebrows, titles, leads, cards, tables",
+      "js_snippet": "const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:0.08}); document.querySelectorAll('.reveal').forEach(el=>io.observe(el));"
+    },
+    "drawer_toggle": {
+      "function": "toggleDrawer(id)",
+      "behaviour": "classList.toggle('open') on drawer element, scrollIntoView smooth on open",
+      "css_closed": "display:none",
+      "css_open": "display:block (drawer class + open class)",
+      "applies_to": [
+        "poster drawers (pm1drawer, pm2drawer)",
+        "OS reader drawer (osDrawer)"
+      ],
+      "drawer_structure": {
+        "outer": "div.drawer \u2014 border-top 1px border, display none",
+        "header": "div.drawer-top \u2014 ink background, flex between title and close button",
+        "content": "div.drawer-pages (poster) or div.os-pages (doc reader)",
+        "images": "loading=lazy, width:100%, display:block"
+      }
+    },
+    "share_functions": {
+      "shareSurvey": "doShare(title, text, SURVEY_URL)",
+      "sharePage": "doShare(title, text, PAGE_URL)",
+      "sharePoster": "doShare(title, text, PAGE_URL+'#programme')",
+      "doShare_logic": "if navigator.share \u2192 native share sheet; else navigator.clipboard.writeText \u2192 show shareDone confirmation for 3s",
+      "PAGE_URL": "Hardcoded to live GitHub Pages URL \u2014 not window.location.href",
+      "SURVEY_URL": "Hardcoded to MS Forms or equivalent survey URL"
+    },
+    "nav_scroll": "html { scroll-behavior: smooth } \u2014 all anchor links scroll smoothly",
+    "poster_buttons": {
+      "view": "toggleDrawer \u2014 opens inline image viewer below card",
+      "download": "HTML anchor with download attribute pointing to PDF filename in same repo",
+      "share": "sharePoster() \u2014 native share on mobile, clipboard fallback"
+    }
+  },
+  "animations": {
+    "hero_figure": {
+      "name": "scaleIn",
+      "keyframe": "from{opacity:0;transform:scale(0.94);} to{opacity:1;transform:scale(1);}",
+      "timing": "0.9s 0.4s cubic-bezier(0.22,1,0.36,1) forwards"
+    },
+    "hero_text_elements": {
+      "name": "fadeUp",
+      "keyframe": "from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:none;}",
+      "delays": "eyebrow:0.1s, title:0.2s, subtitle:0.3s, domain-strips:1.2s, cta:1.5s",
+      "timing": "0.5s ease forwards"
+    },
+    "scroll_cue": {
+      "name": "fadeIn",
+      "keyframe": "from{opacity:0;} to{opacity:1;}",
+      "timing": "1s 2s ease forwards",
+      "structure": "flex column, scroll-line (1px gradient) + 'scroll' text in JetBrains Mono 8px light"
+    },
+    "all_three_keyframes_required": [
+      "fadeUp",
+      "fadeIn",
+      "scaleIn"
+    ]
+  },
+  "github_deployment": {
+    "pattern": "One repo per study under andrewhallorthosports",
+    "repo_naming": "kebab-case study name e.g. sports-medicine-event-care",
+    "pages_setup": "POST /repos/{owner}/{repo}/pages with source branch main \u2014 repo must be public on free plan",
+    "url_pattern": "https://andrewhallorthosports.github.io/{repo-name}/",
+    "files_to_deploy": [
+      "index.html (the landing page)",
+      "Any PDF/DOCX tools for download",
+      "Any poster PDFs for download",
+      "README.md"
+    ],
+    "large_file_push_method": {
+      "why": "Files >1MB cannot be pushed via simple GitHub Contents API",
+      "method": "Git blob API \u2014 create blob, create tree, create commit, update ref",
+      "token": "Classic PAT with repo scope",
+      "steps": [
+        "POST /git/blobs with base64 content",
+        "GET /git/refs/heads/main for current commit SHA",
+        "GET /git/commits/{sha} for tree SHA",
+        "POST /git/trees with base_tree + new blob",
+        "POST /git/commits with message, tree, parent",
+        "PATCH /git/refs/heads/main with new commit SHA"
+      ]
+    },
+    "google_analytics": {
+      "account": "STRIKERS Elite Sports Group (shared)",
+      "per_study": "New Property + new Web Stream per study",
+      "measurement_id_format": "G-XXXXXXXXXX",
+      "placement_in_html": "Immediately after <head> tag",
+      "snippet": "<!-- Google Analytics GA4 -->\n<script async src='https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX'></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n  gtag('config', 'G-XXXXXXXXXX');\n</script>"
+    }
+  },
+  "reusable_assets_for_all_strikers_pages": {
+    "combined_logo": "STRIKERS_St_Andrews_Combined_Logo.png \u2014 use on all pages",
+    "partner_banner": "Screenshot_2026-06-17_at_13_07_45.png \u2014 reuse on all pages",
+    "ci_email": "ajh52@st-andrews.ac.uk",
+    "ci_linkedin": "https://www.linkedin.com/in/andrewhallortho",
+    "email_subject_pattern": "STRIKERS [Study Name] Landing Page Query",
+    "github_token": "Stored with Andrew \u2014 new token if expired, same scope (repo classic PAT)",
+    "standing_rules": [
+      "British English throughout",
+      "No em dashes \u2014 use colons, commas, or parentheses",
+      "No AI or synthesis caveats within figures or on-page content",
+      "No invented citations",
+      "Conservative language \u2014 explicit uncertainty where it exists",
+      "PROTOTYPE label on draft tools",
+      "Structural decisions are Andrew's \u2014 Claude executes"
+    ]
+  },
+  "new_study_checklist": {
+    "before_building": [
+      "Define study title (both papers if applicable)",
+      "Confirm conference/venue name",
+      "Have final abstracts ready (all sections)",
+      "Have main study figure/framework image",
+      "Have poster PPTX/PDF files",
+      "Have survey URL (MS Forms or equivalent)",
+      "Define framework structure (quadrants/domains or equivalent)",
+      "Have any downloadable tool files (PDFs, DOCXs)"
+    ],
+    "content_to_replace": [
+      "All study titles and paper tags",
+      "All abstract text",
+      "Hero eyebrow (conference name)",
+      "Domain strips content (quadrant names and domain lists)",
+      "Comparison table columns and rows (if applicable)",
+      "Quad grid panel content",
+      "Tool arch-card content",
+      "Survey URL and QR code image (base64)",
+      "PAGE_URL constant in JS",
+      "Email subject line",
+      "GA Measurement ID (both instances)",
+      "GitHub repo name",
+      "Poster image base64 data",
+      "Study figure image base64 data",
+      "Footer conference/venue text"
+    ],
+    "to_keep_identical": [
+      "Combined logo (base64)",
+      "Partner banner (base64)",
+      "Entire CSS design system",
+      "All animation keyframes",
+      "All JS functions (toggleDrawer, doShare, shareSurvey, sharePage, sharePoster, IntersectionObserver)",
+      "Nav structure and behaviour",
+      "Section order and HTML structure",
+      "All button patterns and drawer patterns",
+      "Footer structure",
+      "GA snippet structure (just swap ID)",
+      "Mobile optimisations"
+    ]
+  },
+  "smec_next_page": {
+    "study_name": "Sports Medicine Event Care",
+    "abbreviation": "SMEC",
+    "note": "This is Andrew's prior analogous work \u2014 the visual and structural template for PM. A new landing page for SMEC should follow this same design system exactly.",
+    "survey_note": "SMEC survey URL and QR code details were in a prior chat session \u2014 retrieve from that session before building",
+    "github_repo_suggested": "sports-medicine-event-care",
+    "live_url_will_be": "https://andrewhallorthosports.github.io/sports-medicine-event-care/"
+  }
+}
