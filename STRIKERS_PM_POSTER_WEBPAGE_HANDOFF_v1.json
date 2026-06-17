@@ -1,0 +1,925 @@
+{
+  "_meta": {
+    "document": "STRIKERS_PM_POSTER_WEBPAGE_HANDOFF",
+    "version": "1.0",
+    "date": "June 2026",
+    "purpose": "Lossless handoff for poster generation, webpage build, and GitHub deployment \u2014 reusable as a template for any future STRIKERS research project.",
+    "prepared_by": "Claude Sonnet 4.6 / Andrew J Hall",
+    "next_chat_instruction": "Load this JSON first. It contains everything needed to recreate or adapt the PM1/PM2 conference posters, the research landing webpage, and deploy to GitHub Pages. Read all sections before starting any task."
+  },
+  "project_identity": {
+    "programme": "Performance Medicine",
+    "institution_primary": "STRIKERS Elite Sports Group, Dublin, Ireland",
+    "institution_secondary": "University of St Andrews, St Andrews, UK",
+    "conference": "IOC Medical Research Centre UKCCIIS 2026",
+    "chief_investigator": "Dr Andrew J Hall",
+    "ci_email": "ajh52@st-andrews.ac.uk",
+    "ci_linkedin": "https://www.linkedin.com/in/andrewhallortho",
+    "github_org": "andrewhallorthosports",
+    "github_repo": "performance-medicine",
+    "live_url": "https://andrewhallorthosports.github.io/performance-medicine/",
+    "survey_url": "https://forms.office.com/Pages/ResponsePage.aspx?id=yyZW-KgN00mqWGTvZ47wGhQEG7iB5lFCrC2FkKreWthUNllKV0owUElQTEgyOFFWNDVRN0JTRFFaOS4u"
+  },
+  "design_system": {
+    "description": "Shared visual identity across all outputs \u2014 posters, webpage, forms, figures",
+    "palette": {
+      "dark_hub": {
+        "hex": "#1A1840",
+        "use": "Hub, dark headers, PM2 poster header, page nav"
+      },
+      "med": {
+        "hex": "#6040B4",
+        "use": "Medical quadrant"
+      },
+      "psy": {
+        "hex": "#3452C0",
+        "use": "Psychological quadrant"
+      },
+      "ali": {
+        "hex": "#1A7888",
+        "use": "Allied Health and Scientific quadrant"
+      },
+      "tec": {
+        "hex": "#364888",
+        "use": "Technical quadrant"
+      },
+      "oa": {
+        "hex": "#4A3898",
+        "use": "Overarching Aspects ring; PM1 poster header"
+      },
+      "pm1_header": {
+        "hex": "#4A2B82",
+        "use": "PM1 poster header"
+      },
+      "pm2_header": {
+        "hex": "#1A1840",
+        "use": "PM2 poster header"
+      },
+      "pale": {
+        "hex": "#EAF5F4",
+        "use": "Figure background, card backgrounds"
+      },
+      "bg": {
+        "hex": "#FAFAFA",
+        "use": "Page background"
+      },
+      "white": {
+        "hex": "#FFFFFF",
+        "use": "Cards, content areas"
+      },
+      "muted": {
+        "hex": "#6B6888",
+        "use": "Body text secondary"
+      },
+      "light": {
+        "hex": "#9896B0",
+        "use": "Eyebrows, labels, captions"
+      },
+      "border": {
+        "hex": "#E2E0F0",
+        "use": "Card borders, dividers"
+      },
+      "linkedin": {
+        "hex": "#0A66C2",
+        "use": "LinkedIn button only"
+      }
+    },
+    "typography": {
+      "body": "Inter (Google Fonts) \u2014 weights 300, 400, 500, 600, 700, 800",
+      "mono": "JetBrains Mono (Google Fonts) \u2014 weights 300, 400, 500, 600, 700",
+      "poster": "Calibri (PowerPoint native)",
+      "forms": "Arial (Word/docx compatibility)",
+      "mono_use": "All labels, codes, abstract text, eyebrows, buttons, data callouts on webpage",
+      "body_use": "Section titles, body prose, hero title on webpage"
+    },
+    "logos": {
+      "strikers_typemark": "STRIKERS_Logo_-_Typemark___Logomark_Combined.png \u2014 full horizontal logo with S mark, strikerselite text, sports injury group, dublin",
+      "strikers_s_mark": "STRIKERS_Logo_-_S_Logomark_Only.png \u2014 S logomark only",
+      "st_andrews": "Cropped from poster PPTX header at 300dpi \u2014 University of St Andrews crest with text",
+      "placement_nav": "STRIKERS typemark left, grey divider 1px, St Andrews crest right \u2014 height 20px/40px respectively",
+      "placement_footer": "STRIKERS typemark + grey divider + St Andrews crest \u2014 height 24px/52px"
+    },
+    "no_em_dashes": "Em dashes banned throughout all PM outputs \u2014 use colons, commas, or parentheses",
+    "british_english": "British English throughout all outputs"
+  },
+  "PM1_poster": {
+    "title": "Performance Medicine: a scoping review of integrated human performance systems and the need for conceptual architecture",
+    "paper_type": "PM1 \u2014 PRISMA-ScR Scoping Review",
+    "conference": "IOC Medical Research Centre UKCCIIS 2026",
+    "file": "STRIKERS_Performance_Medicine_1_Poster.pptx / .pdf",
+    "format": "A0 portrait (33.11 x 46.81 inches) \u2014 NOTE: portrait not landscape",
+    "header": {
+      "background_hex": "#4A2B82",
+      "left_logos": [
+        "STRIKERS S mark",
+        "St Andrews crest"
+      ],
+      "title_style": "Bold, white, large \u2014 Performance Medicine: bold, remainder italic",
+      "subtitle": "Italic, white, smaller",
+      "authors": "All 18 authors, italic, small white text",
+      "contact": "andrew@andrewhallortho.uk | @andrewhallortho",
+      "right_logo": "strikerselite sports injury group dublin \u2014 white text"
+    },
+    "layout": "2 columns below header, footer strip",
+    "column_1_sections": [
+      {
+        "name": "Introduction",
+        "header_hex": "#1A7888",
+        "content": "Performance Medicine describes the integration of health optimisation and performance enhancement across high-demand human systems. Related models are used in elite sport and tactical, military, and corporate settings, yet the field lacks an agreed definition, conceptual structure, and governing framework. Without these foundations the design, delivery, standardisation, evaluation, and development of PM is limited.",
+        "objectives_bullets": [
+          "Map the literature relating to integrated health and performance systems",
+          "Examine how these systems are described and delivered",
+          "Determine whether a coherent conceptual structure for PM exists"
+        ]
+      },
+      {
+        "name": "Methods",
+        "header_hex": "#1A7888",
+        "content_structured": {
+          "Design": "PRISMA-ScR scoping review of the literature",
+          "Sources": "PubMed, Scopus, ProQuest Central, DOAJ, Google Scholar",
+          "Scope": "2000-2025, English language",
+          "Types": "Empirical studies, reviews, frameworks, models",
+          "Setting": "Integrated health systems in high-performance groups",
+          "Criteria": "Prospectively-applied inclusion and exclusion criteria",
+          "Variables": "Frequency, case mix, context associations, service design",
+          "Analysis": "Descriptive, thematic analysis, stakeholder synthesis"
+        },
+        "paragraph": "A structured claim-evidence synthesis was applied across the included literature, with each claim anchored to identified sources and weighted by evidence type and strength"
+      }
+    ],
+    "column_2_sections": [
+      {
+        "name": "Results: Literature Characteristics",
+        "header_hex": "#1A7888",
+        "stat_callout": "106 Included Studies",
+        "callout_chips": [
+          "Descriptive sources predominate",
+          "Multidisciplinary academic and applied field"
+        ],
+        "tag_chips": [
+          "Inconsistent terminology",
+          "Limited methodological comparability",
+          "Widespread practice is evident",
+          "Growing interest in field development"
+        ],
+        "paragraph": "Most sources were descriptive or practice-led rather than theory-building, reflecting an active but disparate field without clearly conceptual architecture."
+      },
+      {
+        "name": "Results: What is Performance Medicine?",
+        "header_hex": "#1A7888",
+        "content": "Integrated systems for health and performance optimisation is widespread in elite sport, common military and tactical settings, and emerging in corporate and technical contexts e.g. healthcare, engineering, and technology sectors.",
+        "bullets": [
+          "Integration of medical, technical and supporting disciplines",
+          "Healthcare for general health + performance",
+          "System coordination is important for success",
+          "Highly goal-oriented and context-specific"
+        ],
+        "overlap_note": "Overlap with, but distinctions from, related holistic fields (Table 1): Performance Medicine / Sport and Exercise Medicine / Lifestyle Medicine"
+      }
+    ],
+    "full_width_section": {
+      "name": "Results: Performance Medicine and related fields",
+      "header_hex": "#1A1840",
+      "content": "Comparison table \u2014 see comparison_table data in this handoff"
+    },
+    "bottom_sections": [
+      {
+        "name": "Conclusion",
+        "header_hex": "#1A1840",
+        "content": "Performance Medicine is widely practised but insufficiently defined. Lack of conceptual architecture limits standardisation, evaluation and best practice. Empirical study and multidisciplinary stakeholder synthesis is needed to: Define the field more clearly / Develop an integrated framework / Build operational tools for PM system design, delivery and governance."
+      },
+      {
+        "name": "Scan to explore and contribute",
+        "header_hex": "#1A1840",
+        "content": "Scan the QR code to explore our interactive research page, and help shape the field with the Performance Medicine Stakeholder Survey (5 to 8 minutes). Your perspective matters.",
+        "qr_url": "https://andrewhallorthosports.github.io/performance-medicine/"
+      }
+    ],
+    "footer": {
+      "left": "Specialist Treatment and Rehabilitation of Injuries in Kicking, Explosive and Running Sports",
+      "sponsor_logos": [
+        "BACK2BACK",
+        "F1",
+        "IRB",
+        "sportscotland",
+        "Cricket Scotland",
+        "DP World Tour",
+        "team performance",
+        "Royal Navy",
+        "Abu Dhabi Medical Clinic",
+        "Fortius Clinic",
+        "Sport and Exercise Scotland",
+        "SCOTTISH Network",
+        "strikerselite sports injury group dublin"
+      ],
+      "background": "white strip"
+    },
+    "authors_18": [
+      "Lewis Turmeau",
+      "Paul Dijkstra",
+      "Ronan Kearney",
+      "Andrew Murray",
+      "Pieter D'Hooghe",
+      "Eva Carneiro",
+      "Stuart O'Flanagan",
+      "Fearghal Kerin",
+      "Edel Fanning",
+      "Rajeev Routray",
+      "Carrie McCrea",
+      "Claire-Marie Roberts",
+      "Calum Arthur",
+      "Alan Kourie",
+      "Jack Wilby",
+      "Andrea Goceva",
+      "Ciara Grant",
+      "Andrew J Hall"
+    ]
+  },
+  "PM2_poster": {
+    "title": "A Performance Medicine System for Optimising Human Potential: developing a prototype conceptual framework and operational tools",
+    "paper_type": "PM2 \u2014 Framework Synthesis",
+    "conference": "IOC Medical Research Centre UKCCIIS 2026",
+    "file": "STRIKERS_Performance_Medicine_2_Poster.pptx / .pdf",
+    "format": "A0 portrait (33.11 x 46.81 inches)",
+    "header": {
+      "background_hex": "#1A1840",
+      "left_logos": [
+        "STRIKERS S mark",
+        "St Andrews crest"
+      ],
+      "title_style": "Bold, white \u2014 A Performance Medicine System for Optimising Human Potential: bold / developing a prototype... italic",
+      "contact": "andrew@andrewhallortho.uk | @andrewhallortho",
+      "right_logo": "strikerselite sports injury group dublin"
+    },
+    "layout": "2 columns top (Introduction + Conclusion), full-width Results, 3-column bottom (PM-NEAT | PM-OpSpec | QR), footer",
+    "top_left": {
+      "name": "Introduction",
+      "header_hex": "#1A7888",
+      "content": "Performance Medicine describes the integration of health optimisation and performance enhancement across high-demand human systems, but conceptual and structural gaps limit standardisation, evaluation, and best-practice design and delivery.",
+      "aim": "Develop a conceptual framework and Operational Tools through structured multidisciplinary synthesis of scientific and applied literature"
+    },
+    "top_right": {
+      "name": "Conclusion",
+      "header_hex": "#1A7888",
+      "content": "This work addresses an important gap by presenting a unified conceptual architecture and practical tools for Performance Medicine. The Performance Medicine Architecture, Operational Specification, and Need Assessment and Evaluation Tool provide a framework for system design, evaluation, and governance while establishing a basis for subsequent refinement, validation, and applied testing."
+    },
+    "full_width_results": {
+      "name": "Results: The Performance Medicine Architecture",
+      "header_hex": "#1A1840",
+      "centrepiece": "PMIF roundel figure \u2014 full size, centred",
+      "domain_list_right": {
+        "MEDICAL": [
+          "1.1 Sport and Exercise Medicine",
+          "1.2 Lifestyle and Preventative Medicine",
+          "1.3 Emergency and Acute Care",
+          "1.4 Specialist Liaison and Referral"
+        ],
+        "PSYCHOLOGICAL": [
+          "2.1 Performance Psychology",
+          "2.2 Clinical Psychology and Mental Health",
+          "2.3 Psychological Load Management",
+          "2.4 Psychosocial Environment",
+          "2.5 Cognitive Performance",
+          "2.6 Welfare, Crisis and Safeguarding"
+        ],
+        "ALLIED HEALTH AND SCIENTIFIC": [
+          "3.1 Physiotherapy and Rehabilitation",
+          "3.2 Nutrition and Dietetics",
+          "3.3 Strength, Conditioning and Exercise Science",
+          "3.4 Sport and Exercise Physiology",
+          "3.5 Biomechanics and Movement Science",
+          "3.6 Sleep, Recovery and Load Monitoring"
+        ],
+        "TECHNICAL": [
+          "4.1 Data Systems and Performance Analytics",
+          "4.2 Performance Testing and Assessment",
+          "4.3 Technology and Digital Integration",
+          "4.4 Research and Performance Science",
+          "4.5 Environment, Facility and Equipment",
+          "4.6 Operational Logistics and Coordination"
+        ]
+      }
+    },
+    "bottom_3col": {
+      "col1_PM_NEAT": {
+        "header": "PM-NEAT",
+        "header_hex": "#1A7888",
+        "full_name": "PM Needs Evaluation and Assessment Tool",
+        "strapline": "Dual-purpose: prospective needs evaluation AND Current-state service review / gap analysis",
+        "section_A": {
+          "title": "A: Needs Evaluation and Planning",
+          "bullets": [
+            "Assesses what a setting requires to align with PMIF and PM-OpSpec",
+            "Supports structured planning and service scoping",
+            "Identifies required capabilities, adaptations, and resources"
+          ]
+        },
+        "section_B": {
+          "title": "B: Service Review and Improvement",
+          "bullets": [
+            "Assesses how well current provision aligns with PMIF and PM-OpSpec",
+            "Identifies gaps, risks, strengths, and improvement priorities",
+            "Supports benchmarking, assurance, and quality improvement"
+          ]
+        },
+        "footer_tag": "Needs Assessment / Evaluation / Quality Improvement"
+      },
+      "col2_PM_OpSpec": {
+        "header": "PM-OpSpec",
+        "header_hex": "#4A3898",
+        "full_name": "PM Operational Specification",
+        "strapline": "Specifies what a PM system should be for a given setting: Requirements / Roles / Governance / Resources",
+        "bullets": [
+          "Translates PMIF into context-specific operational requirements",
+          "Defines minimum standards and context-specific adaptations",
+          "Clarifies roles, remit, responsibilities, and jurisdiction",
+          "Specifies resources, governance, and evaluation expectations",
+          "Supports service design, commissioning, and planning"
+        ],
+        "sub_components_grid": [
+          [
+            "Purpose and scope",
+            "Population / user group",
+            "Domain coverage"
+          ],
+          [
+            "Team structure",
+            "Governance and accountability",
+            "Information systems"
+          ],
+          [
+            "Decision-making pathways",
+            "Evaluation expectations",
+            "Required resources"
+          ]
+        ],
+        "footer_tag": "Specification / Commissioning / Resource Management"
+      },
+      "col3_QR": {
+        "header": "Scan to explore and contribute",
+        "header_hex": "#1A1840",
+        "content": "Scan the QR code to explore our interactive research page, and contribute to the Performance Medicine Stakeholder Survey",
+        "qr_url": "https://andrewhallorthosports.github.io/performance-medicine/"
+      }
+    },
+    "footer": "Same as PM1 \u2014 sponsor logos strip, white background",
+    "authors_18": "Same 18 as PM1"
+  },
+  "PMIF_figure": {
+    "description": "Performance Medicine Integrative Framework \u2014 concentric roundel, the centrepiece of all PM outputs",
+    "file_locked": "PMIF_Fig1.pptx (source), PMIF_Fig1_v18.png (locked render)",
+    "geometry": {
+      "hub": "Dark circle #0E0C28, text: PERFORMANCE MEDICINE, font Inter 11px 800 white, letter-spacing 1.5",
+      "R_hub": 78,
+      "R_dom": 130,
+      "R_quad": 185,
+      "R_OA": 232,
+      "R_GMD": 248,
+      "viewBox": "0 0 600 600",
+      "centre": "300 300"
+    },
+    "OA_segments": {
+      "note": "Three segments of exactly 120 degrees each",
+      "Clinical_Practice": {
+        "arc": "-150 to -30 degrees",
+        "hex": "#4A3898",
+        "label_deg": -90
+      },
+      "Education_and_Development": {
+        "arc": "-30 to 90 degrees",
+        "hex": "#4A3898",
+        "label_deg": 30
+      },
+      "Research_and_Knowledge_Translation": {
+        "arc": "90 to 210 degrees",
+        "hex": "#4A3898",
+        "label_deg": 150
+      }
+    },
+    "quadrants": {
+      "Medical": {
+        "arc": "180 to 270 degrees",
+        "hex": "#6040B4",
+        "label_deg": 225,
+        "domains": 4
+      },
+      "Psychological": {
+        "arc": "270 to 360 degrees",
+        "hex": "#3452C0",
+        "label_deg": 315,
+        "domains": 6
+      },
+      "Allied_Health_Scientific": {
+        "arc": "0 to 90 degrees",
+        "hex": "#1A7888",
+        "label_deg": 45,
+        "domains": 6
+      },
+      "Technical": {
+        "arc": "90 to 180 degrees",
+        "hex": "#364888",
+        "label_deg": 135,
+        "domains": 6
+      }
+    },
+    "domain_spokes": {
+      "Medical": "3 spokes at 202.5, 225.0, 247.5 degrees (4 domains)",
+      "Psychological": "5 spokes at 285, 300, 315, 330, 345 degrees (6 domains)",
+      "Allied": "5 spokes at 15, 30, 45, 60, 75 degrees (6 domains)",
+      "Technical": "5 spokes at 105, 120, 135, 150, 165 degrees (6 domains)"
+    },
+    "ring_borders": "rgba(255,255,255,0.18-0.35) at R_dom, R_quad, R_OA; dashed at R_GMD",
+    "GMD_label": "GOVERNANCE, MANAGEMENT AND DELIVERY \u2014 bottom centre, 6.5px, letter-spacing 1.8",
+    "background": "#F5F4FC light lavender circle"
+  },
+  "domains_locked": {
+    "Medical": [
+      {
+        "code": "1.1",
+        "name": "Sport and Exercise Medicine"
+      },
+      {
+        "code": "1.2",
+        "name": "Lifestyle and Preventative Medicine"
+      },
+      {
+        "code": "1.3",
+        "name": "Emergency and Acute Care"
+      },
+      {
+        "code": "1.4",
+        "name": "Specialist Liaison and Referral"
+      }
+    ],
+    "Psychological": [
+      {
+        "code": "2.1",
+        "name": "Performance Psychology"
+      },
+      {
+        "code": "2.2",
+        "name": "Clinical Psychology and Mental Health"
+      },
+      {
+        "code": "2.3",
+        "name": "Psychological Load Management"
+      },
+      {
+        "code": "2.4",
+        "name": "Psychosocial Environment"
+      },
+      {
+        "code": "2.5",
+        "name": "Cognitive Performance"
+      },
+      {
+        "code": "2.6",
+        "name": "Welfare, Crisis and Safeguarding"
+      }
+    ],
+    "Allied_Health_Scientific": [
+      {
+        "code": "3.1",
+        "name": "Physiotherapy and Rehabilitation"
+      },
+      {
+        "code": "3.2",
+        "name": "Nutrition and Dietetics"
+      },
+      {
+        "code": "3.3",
+        "name": "Strength, Conditioning and Exercise Science"
+      },
+      {
+        "code": "3.4",
+        "name": "Sport and Exercise Physiology"
+      },
+      {
+        "code": "3.5",
+        "name": "Biomechanics and Movement Science"
+      },
+      {
+        "code": "3.6",
+        "name": "Sleep, Recovery and Load Monitoring"
+      }
+    ],
+    "Technical": [
+      {
+        "code": "4.1",
+        "name": "Data Systems and Performance Analytics"
+      },
+      {
+        "code": "4.2",
+        "name": "Performance Testing and Assessment"
+      },
+      {
+        "code": "4.3",
+        "name": "Technology and Digital Integration"
+      },
+      {
+        "code": "4.4",
+        "name": "Research and Performance Science"
+      },
+      {
+        "code": "4.5",
+        "name": "Environment, Facility and Equipment Management"
+      },
+      {
+        "code": "4.6",
+        "name": "Operational Logistics and Coordination"
+      }
+    ],
+    "Clinical_Practice_OA": [
+      {
+        "code": "5.1",
+        "name": "Governance and Clinical Accountability"
+      },
+      {
+        "code": "5.2",
+        "name": "Clinical Decision-Making and Pathways"
+      },
+      {
+        "code": "5.3",
+        "name": "Documentation, Records and Information Governance"
+      },
+      {
+        "code": "5.4",
+        "name": "Safeguarding and Duty of Care"
+      }
+    ],
+    "Education_Development_OA": [
+      {
+        "code": "6.1",
+        "name": "Staff CPD and Professional Development"
+      },
+      {
+        "code": "6.2",
+        "name": "Mentorship, Supervision and Workforce Development"
+      },
+      {
+        "code": "6.3",
+        "name": "Education for Performers and Teams"
+      },
+      {
+        "code": "6.4",
+        "name": "Workforce Pipeline and Training Capacity"
+      }
+    ],
+    "Research_Knowledge_Translation_OA": [
+      {
+        "code": "7.1",
+        "name": "Service Audit and Quality Improvement"
+      },
+      {
+        "code": "7.2",
+        "name": "Research Engagement"
+      },
+      {
+        "code": "7.3",
+        "name": "Evidence-Informed Practice"
+      },
+      {
+        "code": "7.4",
+        "name": "Knowledge Dissemination and Translation"
+      }
+    ]
+  },
+  "webpage": {
+    "description": "Single self-contained HTML file \u2014 all assets base64 embedded. No external dependencies except Google Fonts and Google Analytics.",
+    "live_url": "https://andrewhallorthosports.github.io/performance-medicine/",
+    "file": "index.html (approx 3MB self-contained)",
+    "tech_stack": {
+      "HTML": "Single file, no build system",
+      "CSS": "Inline in <style> tag \u2014 mobile-first, CSS variables for palette",
+      "JS": "Inline in <script> tag \u2014 vanilla JS only, no frameworks",
+      "fonts": "Google Fonts \u2014 Inter + JetBrains Mono via CDN link",
+      "analytics": "Google Analytics GA4 \u2014 replace G-XXXXXXXXXX with real Measurement ID",
+      "assets": "All images base64 encoded inline \u2014 STRIKERS logos, St Andrews crest, PMIF figure, poster images, QR code"
+    },
+    "sections_in_order": [
+      {
+        "id": "hero",
+        "anchor": null,
+        "content": "PMIF roundel image (full width), domain annotation strips (2x2 grid of quadrant cards with all domain names), hero CTA button",
+        "eyebrow": "IOC Medical Research Centre \u00b7 UKCCIIS 2026",
+        "title": "Performance Medicine (with 'Medicine' in OA purple)"
+      },
+      {
+        "id": "programme",
+        "anchor": "#programme",
+        "nav_label": "Papers",
+        "content": "PM1 and PM2 paper cards \u2014 each with: tag, title, full verbatim abstract (all sections), poster View/Download/Share buttons, inline poster image drawer"
+      },
+      {
+        "id": "comparison",
+        "anchor": "#comparison",
+        "nav_label": "Compare",
+        "content": "10-row comparison table: PM vs SEM vs Lifestyle Medicine vs Preventive Medicine. Horizontally scrollable on mobile. PM column highlighted in OA purple."
+      },
+      {
+        "id": "domains",
+        "anchor": "#domains",
+        "nav_label": "Domains",
+        "content": "2x2 quad grid (purple backgrounds), OA three-panel strip below"
+      },
+      {
+        "id": "tools",
+        "anchor": "#tools",
+        "nav_label": "Tools",
+        "content": "Three arch-cards: PMIF (conceptual), PM-NEAT (download PDF+DOCX), PM-OpSpec (download PDF+DOCX + inline 12-page reader)"
+      },
+      {
+        "id": "survey",
+        "anchor": "#survey",
+        "nav_label": "Survey",
+        "content": "QR code block, primary CTA button (Take the survey), secondary row (Share survey / Share page / Email / LinkedIn)"
+      }
+    ],
+    "nav_structure": {
+      "left": "STRIKERS typemark logo | grey 1px divider | St Andrews crest",
+      "right": "Papers | Compare | Domains | Tools | Survey",
+      "behaviour": "position:fixed \u2014 always visible when scrolling",
+      "height": "52px",
+      "background": "rgba(250,250,250,0.96) with backdrop-filter blur"
+    },
+    "footer": {
+      "logos": "STRIKERS typemark | grey divider | St Andrews crest",
+      "text": "Both institutions / IOC UKCCIIS 2026 / CI name and email / development caveat"
+    },
+    "animations": {
+      "hero_roundel": "scaleIn 0.9s cubic-bezier(0.22,1,0.36,1) \u2014 scale from 0.94 to 1",
+      "hero_text": "fadeUp 0.5s sequential delays 0.1s-1.7s",
+      "scroll_reveal": "IntersectionObserver \u2014 opacity + translateY on .reveal elements, threshold 0.08",
+      "drawers": "CSS display toggle \u2014 poster and OS drawers open inline below their card",
+      "scroll_cue": "Animated vertical line + 'scroll' label fadeIn at 2s delay"
+    },
+    "mobile_optimisations": [
+      "viewport meta with user-scalable=yes for pinch-zoom on poster images",
+      "min-width:0 on nav-left to prevent overflow",
+      "domain-strips 2-col mobile / 4-col desktop via @media(min-width:768px)",
+      "all drawers use max-height + overflow-y:auto with -webkit-overflow-scrolling:touch",
+      "s-secondary-group wraps on mobile",
+      "comp-table min-width:640px with overflow-x:auto parent for horizontal scroll"
+    ],
+    "key_patterns": {
+      "drawer_toggle": "function toggleDrawer(id) \u2014 classList.toggle('open') + scrollIntoView",
+      "share_api": "navigator.share() on mobile, navigator.clipboard.writeText() fallback on desktop",
+      "scroll_reveal": "IntersectionObserver on all .reveal elements",
+      "lazy_loading": "loading='lazy' on all poster and OS page images"
+    }
+  },
+  "github_deployment": {
+    "account": "andrewhallorthosports",
+    "repo": "performance-medicine",
+    "branch": "main",
+    "pages_source": "/ (root of main branch)",
+    "live_url": "https://andrewhallorthosports.github.io/performance-medicine/",
+    "files_in_repo": [
+      "index.html \u2014 main landing page",
+      "PM_NEAT_v0.1.pdf \u2014 downloadable",
+      "PM_NEAT_v0.1.docx \u2014 downloadable",
+      "PM_OpSpec_v0.1.pdf \u2014 downloadable",
+      "PM_OpSpec_v0.1.docx \u2014 downloadable",
+      "STRIKERS_Performance_Medicine_1_Poster.pdf \u2014 downloadable",
+      "STRIKERS_Performance_Medicine_2_Poster.pdf \u2014 downloadable",
+      "README.md \u2014 repo description"
+    ],
+    "deployment_method": "GitHub Pages \u2014 free tier, public repo required",
+    "api_push_method": {
+      "description": "Large files exceed GitHub API get_contents limit. Use git blob API for read/write.",
+      "read_steps": [
+        "GET /repos/{owner}/{repo}/git/trees/main to get blob SHA",
+        "GET /repos/{owner}/{repo}/git/blobs/{sha} \u2014 decode base64 content",
+        "Patch content in Python",
+        "POST /repos/{owner}/{repo}/git/blobs with new base64 content",
+        "GET current commit SHA from /git/refs/heads/main",
+        "GET tree SHA from /git/commits/{commit_sha}",
+        "POST /git/trees with base_tree + new blob entry",
+        "POST /git/commits with message, new tree, parent commit",
+        "PATCH /git/refs/heads/main with new commit SHA"
+      ],
+      "token_scope": "repo (classic personal access token)",
+      "note": "Always use Auth.Token() not deprecated login_or_token"
+    },
+    "make_repo_public_if_needed": {
+      "step1": "github.com \u2192 sign in \u2192 go to the repo",
+      "step2": "Settings tab \u2192 scroll to bottom \u2192 Danger Zone",
+      "step3": "Change repository visibility \u2192 Make public \u2192 type repo name to confirm",
+      "why": "GitHub Pages requires public repo on free plan. GitHub Pro ($4/month) allows Pages on private repos.",
+      "alternative": "Keep repo public (no sensitive data in it \u2014 all assets are already public via the live URL)"
+    },
+    "google_analytics_setup": {
+      "status": "GA4 snippet added to index.html \u2014 awaiting Measurement ID",
+      "step1": "Go to analytics.google.com \u2192 sign in with Google account",
+      "step2": "Create Account \u2192 Account name: STRIKERS Performance Medicine",
+      "step3": "Create Property \u2192 Property name: Performance Medicine Landing Page \u2192 select your country and timezone",
+      "step4": "Choose Web as platform \u2192 enter URL: andrewhallorthosports.github.io/performance-medicine \u2192 Stream name: PM Landing Page",
+      "step5": "Copy the Measurement ID (format: G-XXXXXXXXXX)",
+      "step6": "Tell Claude your Measurement ID \u2014 Claude will replace both instances of G-XXXXXXXXXX in index.html and push to GitHub",
+      "what_you_get": "Real-time visitor count, country and city breakdown, device types, session duration, pages visited \u2014 all in your private Google Analytics dashboard"
+    }
+  },
+  "tools_files": {
+    "PM_NEAT": {
+      "formal_name": "Performance Medicine Assessment Tool",
+      "working_name": "PM-NEAT",
+      "form_number": "Form 1",
+      "version": "v0.1 Prototype",
+      "build_tool": "Node.js with docx@9.6.1",
+      "pages": 9,
+      "sections": [
+        {
+          "number": 1,
+          "title": "Medical",
+          "colour": "#6040B4",
+          "domains": 4
+        },
+        {
+          "number": 2,
+          "title": "Psychological",
+          "colour": "#3452C0",
+          "domains": 6
+        },
+        {
+          "number": 3,
+          "title": "Allied Health and Scientific",
+          "colour": "#1A7888",
+          "domains": 6
+        },
+        {
+          "number": 4,
+          "title": "Technical",
+          "colour": "#364888",
+          "domains": 6
+        },
+        {
+          "number": 5,
+          "title": "Clinical Practice",
+          "colour": "#4A3898",
+          "domains": 4,
+          "type": "OA"
+        },
+        {
+          "number": 6,
+          "title": "Education and Development",
+          "colour": "#4A3898",
+          "domains": 4,
+          "type": "OA"
+        },
+        {
+          "number": 7,
+          "title": "Research and Knowledge Translation",
+          "colour": "#4A3898",
+          "domains": 4,
+          "type": "OA"
+        }
+      ],
+      "columns": [
+        "Domain (code + name)",
+        "Domain description",
+        "Need (0-3)",
+        "Provision (0-3)",
+        "Gap / Notes"
+      ],
+      "rating_system": {
+        "Need": "0=not applicable / 1=low / 2=moderate / 3=high",
+        "Provision": "0=none / 1=limited/ad hoc / 2=partial/developing / 3=established",
+        "Gap": "Need minus Provision",
+        "RAG": ">=2 Red / 1 Amber / <=0 Green / N/A if Need=0"
+      },
+      "summary_section": "7-row aggregate table + 5 priority action rows + narrative conclusion + sign-off",
+      "orientation_fields": [
+        "Client / organisation",
+        "Setting type / function / level / sport or domain",
+        "Performers: who / numbers / level / roles",
+        "Date(s) of assessment",
+        "Assessor(s)",
+        "Purpose / trigger for assessment",
+        "Previous assessment?",
+        "Aims and objectives",
+        "Key performance indicators",
+        "Timeline: near / medium / longer term",
+        "Existing Performance Medicine components",
+        "Specific requests or constraints"
+      ]
+    },
+    "PM_OpSpec": {
+      "formal_name": "Performance Medicine Operational Specification",
+      "working_name": "PM-OpSpec",
+      "form_number": "Form 2",
+      "version": "v0.1 In Development",
+      "build_tool": "Node.js with docx@9.6.1",
+      "pages": 12,
+      "sections": [
+        {
+          "id": "A",
+          "title": "Setting and Context",
+          "fields": 8
+        },
+        {
+          "id": "B",
+          "title": "PMIF Domain Coverage",
+          "note": "All 22 domains in 7 sections, colour-coded"
+        },
+        {
+          "id": "C",
+          "title": "Operational Structure",
+          "sub_components": 9
+        },
+        {
+          "id": "D",
+          "title": "Governance, Document Control and Sign-off",
+          "fields": [
+            "owner",
+            "date",
+            "version",
+            "approved by",
+            "review date",
+            "related documents"
+          ]
+        }
+      ],
+      "nine_sub_components": [
+        "C1 Purpose and scope",
+        "C2 Population and user group",
+        "C3 Domain coverage",
+        "C4 Team structure",
+        "C5 Governance and accountability",
+        "C6 Information systems",
+        "C7 Decision-making pathways",
+        "C8 Evaluation expectations",
+        "C9 Required resources and enabling conditions"
+      ],
+      "maturity_model": "Foundation / Established / Advanced \u2014 per sub-component",
+      "maturity_reference_table": "9-row x 3-column table with descriptors for each level"
+    }
+  },
+  "poster_build_workflow": {
+    "description": "How to build a new conference poster using this template",
+    "tool": "PowerPoint (manual assembly) OR pptxgenjs (programmatic Node.js)",
+    "steps": [
+      "1. Define paper type (scoping review / synthesis / RCT / etc) \u2192 determines header colour and paper_type tag",
+      "2. Populate the poster JSON structure (same schema as PM1_poster or PM2_poster above)",
+      "3. For PM1-style: 2-column layout with methods table and stat callouts",
+      "4. For PM2-style: 2-col top, full-width results with PMIF figure centrepiece, 3-col bottom tools",
+      "5. Header: always STRIKERS S mark + St Andrews crest + title + authors + contact + strikerselite right",
+      "6. Footer: always sponsor logos strip on white",
+      "7. QR code: always the live webpage URL",
+      "8. Export as PDF and add to GitHub repo for download"
+    ],
+    "pptxgenjs_notes": {
+      "package": "pptxgenjs@4.0.1",
+      "slide_size": "A0 portrait: width=33.11, height=46.81 (inches)",
+      "units": "inches throughout",
+      "text_sizing": "fontSize in points",
+      "colour_format": "hex without # prefix in pptxgenjs"
+    }
+  },
+  "webpage_build_workflow": {
+    "description": "How to build a new research landing page using this template",
+    "steps": [
+      "1. Copy the section structure from webpage.sections_in_order",
+      "2. Replace all PM-specific content: titles, abstracts, domain names, figure, tools",
+      "3. Swap palette colours if the new project has a different visual identity",
+      "4. Embed new logos as base64",
+      "5. Update survey URL and QR code",
+      "6. Update nav links to match new sections",
+      "7. Add Google Analytics GA4 snippet with real Measurement ID",
+      "8. Push to GitHub using the blob API method in github_deployment.api_push_method",
+      "9. Enable Pages: POST /repos/{owner}/{repo}/pages with source branch main"
+    ],
+    "reusable_components": [
+      "Nav with logo + divider + institution logo pattern",
+      "Hero with figure + domain annotation strips",
+      "Paper card with abstract + poster drawer",
+      "Comparison table (adapt columns for new field)",
+      "Domain quad grid + OA strip",
+      "Tool arch-cards with PDF/DOCX download + inline reader",
+      "Survey section with QR + share buttons",
+      "Footer with dual logo + text",
+      "All animations (scroll reveal, scaleIn, fadeUp)",
+      "All drawer toggle logic",
+      "Share API pattern (Web Share + clipboard fallback)"
+    ]
+  },
+  "standing_rules": [
+    "British English throughout all outputs",
+    "No em dashes anywhere \u2014 use colons, commas, or parentheses",
+    "No AI or synthesis caveats within figures, forms, or posters \u2014 belongs in methods text only",
+    "No invented citations \u2014 every source externally verifiable",
+    "Conservative reasoning; explicit uncertainty; integrity above completeness",
+    "PROTOTYPE label on PM-NEAT form",
+    "IN DEVELOPMENT label on PM-OpSpec form",
+    "Structural and architectural decisions are Andrew's to make; Claude executes faithfully"
+  ],
+  "next_steps_outstanding": {
+    "GA_measurement_ID": "Andrew to get Measurement ID from analytics.google.com and tell Claude \u2014 Claude will push the update to GitHub",
+    "PRISMA_flow": "Build and add to PM1 \u2014 exclusion counts needed (188 identified, intermediate exclusion steps, 106 charted)",
+    "evidence_strength_chart": "Build horizontal bar / donut chart for PM1 showing 18 claims by evidence category",
+    "poster_lightboxes": "Currently show poster images inline in drawer \u2014 if full-res poster PDFs render on iOS, consider PDF.js viewer",
+    "PM_OpSpec_Form2": "Elicitation was completed and form built \u2014 review against PM2 abstract content and lock",
+    "manuscript_drafting": "PM1 structure complete. PM2 requires Form 2 to be locked first",
+    "custom_domain": "Optional \u2014 purchase a domain (e.g. performancemedicine.io) to enable Cloudflare analytics without GA cookie requirements"
+  }
+}
