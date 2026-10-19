@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>PM-NEAT and PM-OpSpec | Pilot version 0.2</title>
+<meta name="description" content="Performance Medicine Needs Evaluation and Assessment Tool (PM-NEAT) and Performance Medicine Operational Specification (PM-OpSpec), pilot version 0.2.">
+<style>
+:root{
+  --ink:#0E0C28;--ink2:#2C2A4A;--muted:#6B6888;--light:#9896B0;--border:#E2E0F0;--pale:#F4F3FC;--bg:#FAFAFA;--white:#FFFFFF;
+  --hdr:#1A1840;--s1:#6040B4;--s2:#3452C0;--s3:#1A7888;--s4:#364888;--oa:#4A3898;
+  --red:#B42318;--redbg:#FDECEA;--amber:#8A5300;--amberbg:#FEF3DD;--green:#1E6B3A;--greenbg:#E6F4EA;
+  --radius:4px;--col:1040px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:var(--col);margin:0 auto;padding:0 16px}
+.status{background:var(--hdr);color:#fff;text-align:center;font:500 12px/1.4 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em;padding:7px 16px}
+header.top{background:var(--white);border-bottom:1px solid var(--border)}
+header.top .wrap{padding-top:28px;padding-bottom:24px}
+.eyebrow{font:500 11px/1.4 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--light);margin:0 0 10px}
+h1{font-size:26px;line-height:1.25;font-weight:700;margin:0 0 10px;letter-spacing:-.01em}
+.lead{color:var(--muted);margin:0;max-width:760px}
+.bar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(6px)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding-top:10px;padding-bottom:10px}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;flex-wrap:wrap}
+.seg button{border:0;border-right:1px solid var(--border);background:var(--white);color:var(--ink2);font:500 13px Inter,system-ui,sans-serif;padding:7px 11px;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+label.inline{font-size:13px;color:var(--muted);display:inline-flex;gap:6px;align-items:center}
+select,input[type=text],input[type=date],textarea{font:400 14px Inter,system-ui,sans-serif;color:var(--ink);border:1px solid var(--border);border-radius:var(--radius);background:var(--white);padding:7px 9px;width:100%}
+select{width:auto}
+textarea{min-height:64px;resize:vertical}
+select:focus,input:focus,textarea:focus,button:focus-visible{outline:2px solid var(--s2);outline-offset:1px}
+.actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--border);background:var(--white);color:var(--ink);font:500 13px Inter,system-ui,sans-serif;padding:7px 12px;border-radius:var(--radius);cursor:pointer}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn:hover{background:var(--pale)}.btn.primary:hover{background:var(--ink2)}
+main{padding:24px 0 48px}
+h2{font-size:19px;font-weight:700;margin:32px 0 6px}
+h3{font-size:15px;font-weight:600;margin:20px 0 8px}
+p.note{color:var(--muted);font-size:13px;margin:4px 0 12px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin:0 0 12px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:8px 16px;align-items:start}
+.grid2 .lab{font-size:13px;color:var(--ink2);padding-top:8px}
+.sechead{display:flex;align-items:baseline;gap:10px;border-left:4px solid var(--c,var(--ink));padding:4px 0 4px 12px;margin:36px 0 12px}
+.sechead h2{margin:0}.sechead span{font-size:12px;color:var(--muted)}
+.dom{border-left:3px solid var(--c,var(--border))}
+.dom .head{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.code{font:500 13px "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;color:var(--muted);min-width:30px}
+.dname{font-weight:600}
+.desc{color:var(--ink2);font-size:14px;margin:6px 0 8px}
+details{margin:6px 0}
+summary{cursor:pointer;font-size:13px;font-weight:500;color:var(--s2)}
+details ul{margin:6px 0 4px 18px;padding:0;font-size:14px;color:var(--ink2)}
+.example{font-size:13px;color:var(--muted);margin:4px 0 10px}
+.example b{font-weight:600;color:var(--ink2)}
+.rates{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;margin:10px 0 8px}
+.rate{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink2)}
+.rate .seg button{padding:5px 10px;min-width:38px}
+.chip{display:inline-block;font:600 12px Inter,system-ui,sans-serif;padding:3px 9px;border-radius:999px;background:var(--pale);color:var(--muted)}
+.chip.Red{background:var(--redbg);color:var(--red)}.chip.Amber{background:var(--amberbg);color:var(--amber)}.chip.Green{background:var(--greenbg);color:var(--green)}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--white)}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{font-weight:600;font-size:12px;color:var(--ink2);background:var(--pale)}
+td.n,th.n{text-align:center}
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius)}
+.guide td:first-child{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;width:56px}
+.levels{font-size:13px;color:var(--muted);margin:6px 0 0}
+.warn{color:var(--red);font-size:12px}
+footer{border-top:1px solid var(--border);background:var(--white);color:var(--muted);font-size:12px}
+footer .wrap{padding-top:20px;padding-bottom:28px}
+footer p{margin:4px 0}
+a{color:var(--s2)}
+.hidden{display:none!important}
+#gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:16px}
+#gate .card{max-width:380px;width:100%}
+body.locked{overflow:hidden}
+.dl{display:flex;flex-wrap:wrap;gap:8px 14px;margin:14px 0 0;font-size:13px}
+#report{display:none}
+@media (max-width:720px){.bar{position:static}.grid2{grid-template-columns:1fr}.grid2 .lab{padding-top:0}.actions{margin-left:0}h1{font-size:22px}}
+@media print{
+  @page{size:A4;margin:16mm}
+  body{background:#fff;font-size:11px}
+  .bar,.status,header.top .lead,footer .ga,.noprint{display:none!important}
+  .card{border:0;border-bottom:1px solid #ccc;border-radius:0;padding:8px 0;break-inside:avoid}
+  .sechead{break-after:avoid}
+  details{display:block}details>summary{display:none}
+  body.print-report #app,body.print-report header.top{display:none}
+  body.print-report #report{display:block}
+  .pagebreak{break-before:page}
+  textarea,input,select{border:0;padding:0;resize:none}
+  .rate .seg button{display:none}.rate .seg button[aria-pressed="true"]{display:inline-block;background:#fff;color:#000;border:1px solid #000}
+}
+</style>
+</head>
+<body class="locked">
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle"><form class="card" id="gateForm">
+  <p class="eyebrow">Pilot version 0.2</p><h2 id="gateTitle" style="margin:0 0 8px">PM-NEAT and PM-OpSpec</h2>
+  <p class="note">This page is open to the pilot team. Enter the passcode to continue.</p>
+  <input type="password" id="gateIn" aria-label="Passcode" autocomplete="off" autofocus>
+  <p class="warn" id="gateMsg" role="status"></p>
+  <button class="btn primary" type="submit" style="margin-top:8px">Continue</button>
+</form></div>
+<div class="status" id="statusLabel"></div>
+<header class="top"><div class="wrap">
+  <p class="eyebrow" id="orgLabel"></p>
+  <h1>Performance Medicine Needs Evaluation and Assessment Tool (PM-NEAT) and Operational Specification (PM-OpSpec)</h1>
+  <p class="lead" id="leadText">Structured forms built on the 34 domains of the Performance Medicine Integrative Framework, with which a performance medicine service can be planned, audited and redesigned. Nothing you enter leaves this page or is kept after you close it: save a file to keep your work, and open it again to continue.</p>
+</div></header>
+<div class="bar"><div class="wrap">
+  <div class="seg" role="group" aria-label="Form" id="formSeg"></div>
+  <label class="inline">Setting <select id="setting"></select></label>
+  <div class="actions">
+    <button class="btn" id="btnOpen" type="button">Open file</button>
+    <input type="file" id="fileIn" accept=".json,application/json" class="hidden">
+    <button class="btn primary" id="btnSave" type="button">Save file</button>
+    <button class="btn" id="btnReport" type="button">Print report</button>
+    <button class="btn" id="btnFull" type="button">Print full form</button>
+    <button class="btn" id="btnNew" type="button">Clear</button>
+  </div>
+</div></div>
+<main><div class="wrap" id="app"></div><div class="wrap" id="report"></div></main>
+<footer><div class="wrap">
+  <p id="footOrg"></p>
+  <p id="footLic"></p>
+  <p class="ga" id="footGa"></p>
+  <p id="footUrl"></p>
+</div></footer>
+<script>
+// Scoring rules of the version 0.2 specification, shared by the web page and its tests.
+// A rating is "N/A", 0, 1, 2, 3 or undefined (not yet rated).
+const PMScore = (function () {
+  const isNum = (v) => typeof v === "number" && isFinite(v);
+  function gap(need, prov) { return isNum(need) && isNum(prov) ? need - prov : null; }
+  function band(g) { return g === null ? null : g >= 2 ? "Red" : g === 1 ? "Amber" : "Green"; }
+  function worst(bands) { for (const w of ["Red", "Amber", "Green"]) if (bands.includes(w)) return w; return "No rating"; }
+  // domains: [{code, group_code}], ratings: {code: {need, provision}}, form: "1.1" | "1.2" | "1.3"
+  function summarise(domains, ratings, form) {
+    const uses = { need: form !== "1.2", provision: form !== "1.1" };
+    const groups = [];
+    for (const d of domains) if (!groups.includes(d.group_code)) groups.push(d.group_code);
+    const rows = groups.map((gc) => {
+      const ds = domains.filter((d) => d.group_code === gc);
+      const r = { group_code: gc, rated: 0, unrated: 0, need: 0, provision: 0, unmet: 0, surplus: 0, bands: [] };
+      for (const d of ds) {
+        const x = ratings[d.code] || {};
+        const n = uses.need ? x.need : undefined, p = uses.provision ? x.provision : undefined;
+        const used = [uses.need ? n : 0, uses.provision ? p : 0];
+        if (used.some((v) => v === "N/A")) continue;                              // not applicable: excluded from every count
+        if (!used.every(isNum)) { r.unrated += 1; continue; }                     // a rating the form uses is still blank
+        r.rated += 1;
+        if (uses.need) r.need += n;
+        if (uses.provision) r.provision += p;
+        const g = gap(n, p);
+        if (g !== null) { if (g > 0) r.unmet += g; if (g < 0) r.surplus += -g; r.bands.push(band(g)); }
+      }
+      r.rag = worst(r.bands); delete r.bands;
+      return r;
+    });
+    const all = { group_code: "All", rated: 0, unrated: 0, need: 0, provision: 0, unmet: 0, surplus: 0 };
+    for (const r of rows) for (const k of ["rated", "unrated", "need", "provision", "unmet", "surplus"]) all[k] += r[k];
+    all.rag = worst(rows.map((r) => r.rag));
+    return { rows, all };
+  }
+  // PM-OpSpec C3: coverage lists from Form 1.3 ratings (a domain needing and receiving nothing is in none of the lists)
+  function coverage(domains, ratings) {
+    const out = { full: [], partial: [], none: [], out: [] };
+    for (const d of domains) {
+      const x = ratings[d.code] || {};
+      if (x.need === "N/A" || x.provision === "N/A") { out.out.push(d.code); continue; }
+      const b = band(gap(x.need, x.provision));
+      if (b === "Green" && x.provision >= 1) out.full.push(d.code);
+      else if (b && x.provision >= 1) out.partial.push(d.code);
+      else if (b && x.provision === 0 && x.need >= 1) out.none.push(d.code);
+    }
+    return out;
+  }
+  return { gap, band, worst, summarise, coverage, isNum };
+})();
+if (typeof module !== "undefined") module.exports = PMScore;
+
+</script>
+<script>
+const SPEC = {"labels": {"organisation": "STRIKERS Elite Sports Group | University of St Andrews", "status": "Pilot version 0.2: not yet validated", "decision": "T15"}, "licence": {"name": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International", "short": "CC BY-NC-ND 4.0", "url": "https://creativecommons.org/licenses/by-nc-nd/4.0/", "decision": "T15"}, "settings": ["Sport", "Military and tactical", "Healthcare", "Corporate and occupational"], "scales": {"na": {"label": "Not applicable", "descriptor": "The domain does not apply to this setting; it is excluded from every total.", "pairing": "a domain not applicable for need is not applicable for provision, and the reverse (T10)"}, "need": [{"score": 0, "label": "No current need", "descriptor": "The domain applies to this setting, but no provision is required at present."}, {"score": 1, "label": "Low need", "descriptor": "An occasional or minor requirement that general staff can meet."}, {"score": 2, "label": "Moderate need", "descriptor": "A regular requirement that calls for planned provision."}, {"score": 3, "label": "High need", "descriptor": "A frequent, critical or high-risk requirement that calls for dedicated specialist provision."}], "provision": [{"score": 0, "label": "None", "descriptor": "No provision."}, {"score": 1, "label": "Limited or ad hoc", "descriptor": "Occasional or informal provision, met by general staff or dependent on particular individuals."}, {"score": 2, "label": "Planned or developing", "descriptor": "Planned, regular provision without dedicated specialist input, or specialist provision that is not yet delivered consistently."}, {"score": 3, "label": "Established", "descriptor": "Dedicated specialist provision that is planned, consistent and documented, with named responsibility."}], "provision_decision": "T25 (amends T10)"}, "gap": {"formula": "need minus provision, for domains rated on both", "bands": [{"band": "Red", "rule": "gap of 2 or more", "meaning": "priority action"}, {"band": "Amber", "rule": "gap of 1", "meaning": "development"}, {"band": "Green", "rule": "gap of 0 or less", "meaning": "met or exceeded"}], "na_rule": "a domain rated not applicable has no gap and is excluded from every total (T5)"}, "notice": "This page sends nothing you enter anywhere and keeps nothing after you close it: save a file to keep your work, and open it again to continue. It loads no analytics and no external typefaces.", "performers": "Performers means the athletes, service personnel, clinicians or employees whose work places sustained physical, cognitive or psychological demands on them.", "domains": [{"code": "1.1", "group_code": "1", "group": "Medical", "ring": "Quadrant", "name": "Sport and Exercise Medicine", "description_v0_2": "Medical care of performers: diagnosis and medical management of injury and illness, medical screening, prescribing and oversight of health across training, competition, operations or work; emergency care is scored under 1.3 and rehabilitation under 3.1.", "prompts": ["Who provides medical care to performers, with what qualifications, and how much of their time is committed to this population?", "Is there a documented medical screening process, and are its results acted on and reviewed?", "Who holds medical oversight across training, competition, operations or work, and how are injury and illness recorded?"], "setting_examples": {"Sport": "A team doctor runs pre-season medical screening and manages injury and illness through the season.", "Military and tactical": "A unit medical officer screens recruits, manages training injuries and certifies medical fitness for deployment.", "Healthcare": "An occupational physician manages injury and illness in theatre and emergency department staff.", "Corporate and occupational": "An occupational physician assesses fitness for work and manages injury and illness in staff with physically demanding roles."}}, {"code": "1.2", "group_code": "1", "group": "Medical", "ring": "Quadrant", "name": "Lifestyle and Preventative Medicine", "description_v0_2": "Health promotion and the prevention of chronic disease: assessment of and intervention on physical activity, diet, sleep, stress, substance use and social connection, and screening for long-term risk; specialist nutrition and sleep provision for performance are scored under 3.2 and 3.6.", "prompts": ["Is lifestyle risk (physical activity, diet, sleep, stress, substance use and social connection) assessed in a structured way, and how often?", "What intervention or referral follows when a risk is identified?", "Is performers' long-term health, beyond the current season, posting or role, considered in planning?"], "setting_examples": {"Sport": "Athletes approaching retirement are screened for cardiovascular and metabolic risk and advised on activity after competition.", "Military and tactical": "Service personnel are offered smoking cessation, alcohol advice and cardiovascular risk checks.", "Healthcare": "Shift-working nurses are offered health checks and support with diet, activity and alcohol.", "Corporate and occupational": "Employees are offered health checks with follow-up of blood pressure, activity and weight."}}, {"code": "1.3", "group_code": "1", "group": "Medical", "ring": "Quadrant", "name": "Emergency and Acute Care", "description_v0_2": "Emergency action planning and the immediate care of acute injury and illness wherever performers train, compete, deploy or work, with the staff training, equipment and drills that it requires.", "prompts": ["Is there a written emergency action plan for each venue or site, and when was it last rehearsed?", "Are staff trained to the level of emergency care the setting requires, with training in date and equipment checked?", "How quickly can a performer with a serious acute injury or illness reach definitive care?"], "setting_examples": {"Sport": "The pitch-side team rehearses its plan for cardiac arrest and spinal injury before each season.", "Military and tactical": "Combat medical technicians hold current trauma training and carry checked equipment on exercise.", "Healthcare": "A hospital has a plan for staff who collapse or are injured at work, including those working alone or at night.", "Corporate and occupational": "Sites with heavy machinery or lone workers have trained first aiders, defibrillators and a rehearsed response plan."}}, {"code": "1.4", "group_code": "1", "group": "Medical", "ring": "Quadrant", "name": "Specialist Liaison and Referral", "description_v0_2": "Access to care beyond the service: referral pathways to external specialists and to secondary and tertiary services, and the coordination of performers' care across them.", "prompts": ["Are there agreed referral routes to the specialists that performers most often need, and how long do referrals take?", "Who coordinates care when a performer is under more than one external service?", "Does information from external services return to the performer's record?"], "setting_examples": {"Sport": "A club has agreed routes to orthopaedic, cardiology and imaging services, with expected waiting times.", "Military and tactical": "Personnel are referred from primary care to rehabilitation and secondary care through a coordinated pathway.", "Healthcare": "Staff with a work-related injury have an expedited route to musculoskeletal and mental health specialists.", "Corporate and occupational": "An employee health provider arranges specialist assessment and returns the advice to the occupational health team."}}, {"code": "2.1", "group_code": "2", "group": "Psychological", "ring": "Quadrant", "name": "Performance Psychology", "description_v0_2": "Performance psychology: mental skills, psychological readiness and preparation for performance under pressure, for individuals and teams.", "prompts": ["Who provides performance psychology support, with what qualifications, and how do performers access it?", "Is psychological preparation for high-pressure events planned and reviewed, for individuals and for teams?"], "setting_examples": {"Sport": "A practitioner psychologist works with a national squad on pre-competition routines and training under pressure.", "Military and tactical": "Personnel receive mental skills training before selection courses or deployment.", "Healthcare": "Surgical and resuscitation teams rehearse performance under pressure in simulation with structured debriefing.", "Corporate and occupational": "Senior staff are coached in preparation for high-stakes negotiations or presentations."}}, {"code": "2.2", "group_code": "2", "group": "Psychological", "ring": "Quadrant", "name": "Clinical Psychology and Mental Health", "description_v0_2": "Mental health care: screening, assessment, treatment and onward referral for mental health conditions in performers; the response to acute crises is scored under 2.6.", "prompts": ["Is there routine screening for mental health conditions, and what happens after a positive screen?", "Who provides assessment and treatment, and how long do performers wait for it?", "Are referral routes to specialist mental health services agreed and used?"], "setting_examples": {"Sport": "Athletes complete an annual mental health screen, with access to a clinical psychologist and a psychiatrist where needed.", "Military and tactical": "Personnel have access to mental health assessment and treatment, including after operational deployment.", "Healthcare": "Clinicians have a confidential route to psychological assessment and treatment that is separate from their line management.", "Corporate and occupational": "An employee assistance programme offers assessment and short-term therapy, with onward referral for complex needs."}}, {"code": "2.3", "group_code": "2", "group": "Psychological", "ring": "Quadrant", "name": "Psychological Load Management", "description_v0_2": "Psychological load: monitoring and management of stress, fatigue and burnout, and of psychological recovery; physical load is scored under 3.6.", "prompts": ["How are stress, fatigue and burnout monitored, and by whom?", "What action follows when monitoring shows rising psychological load?"], "setting_examples": {"Sport": "Wellbeing questionnaires are reviewed weekly, and selection or travel is adjusted when stress scores rise.", "Military and tactical": "Commanders review stress and fatigue indicators during prolonged operations and plan decompression.", "Healthcare": "Departments monitor indicators of burnout and adjust rotas when they rise during periods of high demand.", "Corporate and occupational": "Workload and stress surveys inform the planning of peak periods and leave."}}, {"code": "2.4", "group_code": "2", "group": "Psychological", "ring": "Quadrant", "name": "Psychosocial Environment", "description_v0_2": "The psychosocial environment: team culture, psychological safety, relationships, leadership climate and the social conditions in which performers live and work.", "prompts": ["How are team culture and psychological safety assessed, and how are the results acted on?", "Are relationships between performers, the coaches, commanders or managers around them, and support staff reviewed?"], "setting_examples": {"Sport": "A squad's culture survey informs leadership development for coaches and captains.", "Military and tactical": "Unit climate assessments are used to strengthen cohesion and address poor behaviour.", "Healthcare": "Departments assess psychological safety and how readily staff speak up within clinical teams.", "Corporate and occupational": "Team climate and inclusion surveys inform the development of managers."}}, {"code": "2.5", "group_code": "2", "group": "Psychological", "ring": "Quadrant", "name": "Cognitive Performance", "description_v0_2": "Cognitive performance: attention, perception, decision-making under pressure, cognitive load and brain health.", "prompts": ["Are attention, decision-making and cognitive load assessed or trained, and how?", "Is brain health monitored over time, with cognitive baselines where head impact is a risk?"], "setting_examples": {"Sport": "Players in contact sport complete baseline cognitive testing, and decision-making is trained within sessions.", "Military and tactical": "Personnel train decision-making under fatigue and are monitored after blast exposure.", "Healthcare": "Cognitive load on long shifts is reduced through checklists and structured handover.", "Corporate and occupational": "Roles that demand sustained attention, such as control-room work, are designed to limit cognitive overload."}}, {"code": "2.6", "group_code": "2", "group": "Psychological", "ring": "Quadrant", "name": "Welfare, Crisis and Safeguarding", "description_v0_2": "Welfare support for performers and the immediate response to psychological crises, critical incidents and safeguarding concerns as they arise, with onward referral; the organisation's safeguarding framework is scored under 5.4.", "prompts": ["Is there a known route by which a performer in crisis, or a concern about one, reaches help at any hour?", "Are critical incidents followed by a structured response and onward referral?", "Are individual welfare and safeguarding concerns recorded and followed through?"], "setting_examples": {"Sport": "A welfare officer is on call during competition and refers athletes in crisis to mental health services.", "Military and tactical": "A structured peer support process follows critical incidents, with referral for those who need it.", "Healthcare": "Staff involved in a patient's death or a serious incident are offered structured support and referral.", "Corporate and occupational": "Managers have a route to urgent support for an employee in crisis, at work or while travelling."}}, {"code": "3.1", "group_code": "3", "group": "Allied Health and Scientific", "ring": "Quadrant", "name": "Physiotherapy and Rehabilitation", "description_v0_2": "Musculoskeletal assessment, treatment and progressive rehabilitation to agreed criteria; the decision to return to full performance is scored under 5.2.", "prompts": ["Who provides musculoskeletal assessment and treatment, and how quickly can performers be seen?", "Are rehabilitation plans written, progressed against agreed criteria and reviewed?"], "setting_examples": {"Sport": "Physiotherapists run criteria-based rehabilitation after anterior cruciate ligament reconstruction.", "Military and tactical": "Personnel with training injuries follow graded rehabilitation at a regional rehabilitation unit.", "Healthcare": "Staff with back injury from manual handling have rapid access to physiotherapy.", "Corporate and occupational": "Employees in manual roles can refer themselves to physiotherapy, with a graded rehabilitation plan."}}, {"code": "3.2", "group_code": "3", "group": "Allied Health and Scientific", "ring": "Quadrant", "name": "Nutrition and Dietetics", "description_v0_2": "Nutritional assessment, fuelling and hydration strategies, body composition, supplement use and the dietetic management of clinical conditions.", "prompts": ["Who provides nutrition support, with what qualifications, and is it individual or group-based?", "Are fuelling, hydration and supplement use assessed and governed, including the risk of low energy availability?", "Are clinical conditions that need dietetic management identified and referred?"], "setting_examples": {"Sport": "A registered sports dietitian plans fuelling around training and screens for low energy availability.", "Military and tactical": "Field rations and hydration plans are designed for heat and prolonged exertion.", "Healthcare": "Staff on long and night shifts receive advice on fuelling and hydration, with dietetic referral where needed.", "Corporate and occupational": "Employees in shift or travel-heavy roles receive nutrition guidance suited to their working pattern."}}, {"code": "3.3", "group_code": "3", "group": "Allied Health and Scientific", "ring": "Quadrant", "name": "Strength, Conditioning and Exercise Science", "description_v0_2": "Physical preparation: the design, prescription and delivery of strength, conditioning and exercise programmes, including the planning of training load; monitoring of the load received is scored under 3.6.", "prompts": ["Who designs and delivers physical preparation, with what qualifications?", "Are programmes individualised, and is training load planned across the year or cycle?"], "setting_examples": {"Sport": "An accredited strength and conditioning coach plans training across the competitive season.", "Military and tactical": "Physical training instructors deliver progressive conditioning before selection courses.", "Healthcare": "Ambulance and theatre staff are offered conditioning for patient handling and prolonged standing.", "Corporate and occupational": "Employees in physically demanding roles follow conditioning programmes designed for the tasks they perform."}}, {"code": "3.4", "group_code": "3", "group": "Allied Health and Scientific", "ring": "Quadrant", "name": "Sport and Exercise Physiology", "description_v0_2": "Physiological assessment and support: aerobic and anaerobic capacity, metabolic and environmental physiology (heat, cold and altitude), and the interpretation of results for training and health; the testing programme as a whole is scored under 4.2.", "prompts": ["Is physiological assessment available, and are results interpreted and used in training and health decisions?", "Are environmental demands such as heat, cold or altitude assessed and prepared for?"], "setting_examples": {"Sport": "Endurance athletes undergo laboratory testing and heat acclimation before major championships.", "Military and tactical": "Personnel are acclimatised and monitored before deployment to hot or high-altitude environments.", "Healthcare": "Heat strain in staff wearing protective equipment is assessed and managed.", "Corporate and occupational": "The physiological demands of outdoor or heat-exposed work are assessed to set cycles of work and rest."}}, {"code": "3.5", "group_code": "3", "group": "Allied Health and Scientific", "ring": "Quadrant", "name": "Biomechanics and Movement Science", "description_v0_2": "Movement and technique analysis, the physical demands of the task and the biomechanics of injury and its prevention.", "prompts": ["Is movement or technique analysed, by whom and with what methods?", "Are the physical demands of the task understood and used in preventing injury?"], "setting_examples": {"Sport": "Analysis of a fast bowler's action informs a change of technique to reduce lumbar stress injury.", "Military and tactical": "Load carriage and marching technique are analysed to reduce lower limb stress injury.", "Healthcare": "Operating and patient-handling postures are analysed to reduce musculoskeletal strain in surgeons and nurses.", "Corporate and occupational": "Lifting tasks and workstations are assessed to reduce musculoskeletal injury."}}, {"code": "3.6", "group_code": "3", "group": "Allied Health and Scientific", "ring": "Quadrant", "name": "Sleep, Recovery and Load Monitoring", "description_v0_2": "Sleep, recovery practice and the monitoring of the training, operational or occupational load that performers receive and of their response to it; the prescription of load is scored under 3.3 and psychological load under 2.3.", "prompts": ["Is the load that performers receive measured, and is their response to it monitored?", "Are sleep and recovery assessed, and what support follows a problem?", "Who reviews the monitoring data, and how does it change practice?"], "setting_examples": {"Sport": "Training load and wellness data are reviewed daily, and sleep is supported across long-haul travel.", "Military and tactical": "Sleep and physical load are monitored during sustained operations, and rest is scheduled.", "Healthcare": "Hours worked and sleep across night shifts are monitored, and rotas allow recovery between them.", "Corporate and occupational": "The hours and travel load of shift and travelling workers are monitored, and working hours are adjusted when sleep suffers."}}, {"code": "4.1", "group_code": "4", "group": "Technical", "ring": "Quadrant", "name": "Data Systems and Performance Analytics", "description_v0_2": "Data infrastructure and analytics: the platforms, integration, analysis and reporting that turn health and performance data into information for decisions; information governance is scored under 5.3.", "prompts": ["Where are health and performance data held, and can they be brought together?", "Who analyses the data, and how are the results reported to those who make decisions?"], "setting_examples": {"Sport": "An athlete management system brings medical, training and wellness data together in reports for coaches.", "Military and tactical": "Injury and training data from training establishments are combined to inform the design of training.", "Healthcare": "Staff absence, injury and occupational health data are combined to report on the health of the workforce.", "Corporate and occupational": "Anonymised occupational health and absence data are reported to the board."}}, {"code": "4.2", "group_code": "4", "group": "Technical", "ring": "Quadrant", "name": "Performance Testing and Assessment", "description_v0_2": "The testing programme across disciplines: selection and scheduling of standardised tests, their reliability and quality control, and benchmarking; the interpretation of results within each discipline is scored in that discipline's domain.", "prompts": ["Is there a schedule of standardised tests across disciplines, and is it followed?", "Are the reliability and quality control of the tests known, and are results benchmarked?"], "setting_examples": {"Sport": "A national programme runs a standard test battery three times a season, with its measurement error known.", "Military and tactical": "Physical employment standards are tested on a fixed schedule with standardised protocols.", "Healthcare": "Fitness-for-role assessments for staff in physically demanding roles follow a standard protocol.", "Corporate and occupational": "Fitness-for-task tests for safety-critical roles are standardised and repeated at fixed intervals."}}, {"code": "4.3", "group_code": "4", "group": "Technical", "ring": "Quadrant", "name": "Technology and Digital Integration", "description_v0_2": "Wearable, positional, biometric and digital health technologies: their selection, evaluation, deployment and integration into practice; the platforms that store and report their data are scored under 4.1.", "prompts": ["Which wearable, positional or digital health technologies are used, and were they evaluated before adoption?", "How are they integrated into practice, and who is responsible for them?"], "setting_examples": {"Sport": "Positional tracking units are evaluated for validity before they replace an older system.", "Military and tactical": "Wearable physiological monitors are trialled for detecting heat strain during training.", "Healthcare": "Digital tools for staff wellbeing and fatigue are evaluated before they are rolled out.", "Corporate and occupational": "Wearable devices offered to employees are assessed for accuracy and uptake."}}, {"code": "4.4", "group_code": "4", "group": "Technical", "ring": "Quadrant", "name": "Research and Performance Science", "description_v0_2": "In-house research and performance science capability: the people, skills and time to generate local evidence through applied studies, innovation projects and the evaluation of new methods; external research partnerships are scored under 7.2.", "prompts": ["Does the service have staff with the skills and protected time to run applied studies?", "Are new methods evaluated locally before they are adopted?"], "setting_examples": {"Sport": "An embedded performance scientist evaluates a new recovery method across a season.", "Military and tactical": "A training establishment runs an applied study of an injury prevention programme.", "Healthcare": "An occupational health team evaluates a new fatigue intervention within its own hospital.", "Corporate and occupational": "An in-house team evaluates the effect of a workplace health programme on absence."}}, {"code": "4.5", "group_code": "4", "group": "Technical", "ring": "Quadrant", "name": "Environment, Facility and Equipment Management", "description_v0_2": "Facilities and equipment: training, operational and clinical spaces, and the provision, maintenance and safety of equipment; emergency equipment is scored under 1.3.", "prompts": ["Are training, operational and clinical spaces fit for purpose and safe?", "Is equipment maintained, logged and replaced on schedule?"], "setting_examples": {"Sport": "A club's medical room and gym equipment are inspected and maintained against a log.", "Military and tactical": "Field medical and training equipment is checked before deployment.", "Healthcare": "Staff rest, changing and exercise facilities are provided and maintained.", "Corporate and occupational": "Workplace fitness, changing and rest facilities are inspected and maintained."}}, {"code": "4.6", "group_code": "4", "group": "Technical", "ring": "Quadrant", "name": "Operational Logistics and Coordination", "description_v0_2": "Operational logistics: travel, scheduling, deployments and multi-site operations, and the movement of staff, equipment and medicines between sites.", "prompts": ["How are travel, scheduling and multi-site work planned, and who coordinates them?", "How are staff, equipment and medicines moved between sites, and is this governed?"], "setting_examples": {"Sport": "Staff, medical kit and medicines are planned for an overseas tournament, including the import rules for medicines.", "Military and tactical": "Medical support, equipment and supplies are coordinated across dispersed deployed locations.", "Healthcare": "Occupational health support is coordinated across several hospital sites.", "Corporate and occupational": "Health support for employees who travel or are posted overseas is planned and coordinated."}}, {"code": "5.1", "group_code": "5", "group": "Clinical Practice", "ring": "Overarching Aspect", "name": "Governance and Clinical Accountability", "description_v0_2": "Clinical governance: lines of clinical accountability, professional registration and scope of practice, policies, risk and incident management, and regulatory compliance; the governance and management of the wider organisation sit in the framework's outer boundary.", "prompts": ["Is a named clinical lead accountable for the service, and are staff registered and working within their scope of practice?", "Are policies current, and are risks and incidents recorded and reviewed?"], "setting_examples": {"Sport": "A club's head of medicine holds clinical accountability, and staff registration is checked every year.", "Military and tactical": "Clinical governance of unit medical care is overseen through the medical chain of command.", "Healthcare": "The occupational health service is accountable through the hospital's clinical governance structures.", "Corporate and occupational": "A contracted occupational health provider reports incidents and audits to a named clinical lead."}}, {"code": "5.2", "group_code": "5", "group": "Clinical Practice", "ring": "Overarching Aspect", "name": "Clinical Decision-Making and Pathways", "description_v0_2": "Clinical decision-making: shared decision-making with performers, inter-professional case review, care pathways across disciplines and decisions on return to full performance.", "prompts": ["Are performers involved in decisions about their care, and is this recorded?", "Are complex cases reviewed across disciplines, and are care pathways written?", "How are decisions on return to full performance made, and by whom?"], "setting_examples": {"Sport": "Return-to-play decisions are made at an interdisciplinary meeting with the athlete and recorded.", "Military and tactical": "Decisions on medical employment are made by a board that takes account of the individual's view.", "Healthcare": "Decisions on return to work after illness are agreed between occupational health, the manager and the member of staff.", "Corporate and occupational": "Complex cases are reviewed by occupational health, human resources and the employee before a phased return."}}, {"code": "5.3", "group_code": "5", "group": "Clinical Practice", "ring": "Overarching Aspect", "name": "Documentation, Records and Information Governance", "description_v0_2": "Records and information governance: clinical record systems, confidentiality, data protection compliance and the protocols for sharing information across disciplines and organisations.", "prompts": ["Are clinical records complete, secure and kept to professional standards?", "Is there a written protocol, with consent, for sharing information between disciplines and with coaches, commanders or managers?"], "setting_examples": {"Sport": "An electronic medical record limits coaching staff to agreed information on availability.", "Military and tactical": "Confidential medical information is kept separate from what is shared with the chain of command.", "Healthcare": "Occupational health records are kept separate from staff members' personnel files and from any record of their care as patients.", "Corporate and occupational": "Occupational health reports to managers state fitness and adjustments without clinical detail."}}, {"code": "5.4", "group_code": "5", "group": "Clinical Practice", "ring": "Overarching Aspect", "name": "Safeguarding and Duty of Care", "description_v0_2": "The safeguarding framework: child and adult protection policies, designated safeguarding leads, consent procedures, reporting and escalation routes, and the duty of care owed to performers and staff; the response to individual concerns is scored under 2.6.", "prompts": ["Are child and adult safeguarding policies current, and is there a named designated lead?", "Are consent procedures, and the routes for reporting and escalation, written and known to staff?"], "setting_examples": {"Sport": "An academy has a designated safeguarding lead, and staff who work with players under 18 are checked.", "Military and tactical": "Training establishments hold safeguarding policies for recruits under 18 and for vulnerable adults.", "Healthcare": "Staff safeguarding policies cover concerns about colleagues as well as about patients.", "Corporate and occupational": "The organisation's duty of care policy covers employees who work alone or travel to high-risk areas."}}, {"code": "6.1", "group_code": "6", "group": "Education and Development", "ring": "Overarching Aspect", "name": "Staff CPD and Professional Development", "description_v0_2": "Continuing professional development of current staff: training plans, protected learning time and competency frameworks within each discipline and for working across disciplines.", "prompts": ["Does each member of staff have a development plan and protected learning time?", "Is there a competency framework within each discipline and for working across disciplines?"], "setting_examples": {"Sport": "Medical and science staff have funded annual training, including interdisciplinary case-based learning.", "Military and tactical": "Medical personnel follow a competency framework, with protected training time between deployments.", "Healthcare": "Occupational health staff hold development plans linked to a professional competency framework.", "Corporate and occupational": "In-house health staff have funded development time and an annual appraisal."}}, {"code": "6.2", "group_code": "6", "group": "Education and Development", "ring": "Overarching Aspect", "name": "Mentorship, Supervision and Workforce Development", "description_v0_2": "Clinical and professional supervision and mentoring of current staff, and the development of individuals within their roles through them; the recruitment and training of future practitioners is scored under 6.4.", "prompts": ["Do staff receive regular clinical or professional supervision, and is it recorded?", "Is mentoring available, particularly for staff new to the setting?"], "setting_examples": {"Sport": "A junior physiotherapist has monthly supervision with a senior colleague.", "Military and tactical": "Newly qualified medical officers are mentored by experienced clinicians.", "Healthcare": "Occupational health nurses receive regular clinical supervision.", "Corporate and occupational": "A lone in-house practitioner has external supervision arranged by the employer."}}, {"code": "6.3", "group_code": "6", "group": "Education and Development", "ring": "Overarching Aspect", "name": "Education for Performers and Teams", "description_v0_2": "Education of performers and of the coaches, commanders and managers around them: health literacy, performance education and support for informed self-management.", "prompts": ["Are performers, and the coaches, commanders or managers around them, educated about health and performance?", "Does the education support performers to manage their own health?"], "setting_examples": {"Sport": "Athletes and coaches are taught about concussion, anti-doping and menstrual health.", "Military and tactical": "Recruits and instructors are taught about injury prevention, sleep and heat illness.", "Healthcare": "Staff are taught about fatigue, shift work and looking after their own health.", "Corporate and occupational": "Managers are trained to recognise ill health and to support employees."}}, {"code": "6.4", "group_code": "6", "group": "Education and Development", "ring": "Overarching Aspect", "name": "Workforce Pipeline and Training Capacity", "description_v0_2": "The pipeline of future practitioners: placements, internships and training posts, the capacity to host and teach them, and succession planning for key roles.", "prompts": ["Does the service host placements, internships or training posts, and does it have the capacity to teach them?", "Is there a succession plan for key roles?"], "setting_examples": {"Sport": "A club hosts sports science interns and a training post in sport and exercise medicine.", "Military and tactical": "Training posts are planned so that specialist medical roles can be filled.", "Healthcare": "The occupational health service hosts trainees in occupational medicine and nursing.", "Corporate and occupational": "An employer's health service plans the succession of its lead clinician."}}, {"code": "7.1", "group_code": "7", "group": "Research and Knowledge Translation", "ring": "Overarching Aspect", "name": "Service Audit and Quality Improvement", "description_v0_2": "Clinical audit and quality improvement: audit against agreed standards, monitoring of outcomes and structured improvement of the service.", "prompts": ["Is practice audited against agreed standards, and are audits completed through to re-audit?", "Are outcomes monitored and used to improve the service?"], "setting_examples": {"Sport": "Injury rates and time lost are audited each season against agreed standards and the previous season.", "Military and tactical": "Rehabilitation outcomes are audited across units against an agreed standard.", "Healthcare": "The time from referral to occupational health assessment is audited and improved.", "Corporate and occupational": "The health service audits return-to-work outcomes and acts on the findings."}}, {"code": "7.2", "group_code": "7", "group": "Research and Knowledge Translation", "ring": "Overarching Aspect", "name": "Research Engagement", "description_v0_2": "Engagement with the wider research community: participation in external studies, academic partnerships, research ethics and governance, and the use of the service's data for research; in-house research capability is scored under 4.4.", "prompts": ["Does the service take part in external studies or hold academic partnerships?", "Is research governed, with ethical approval and data sharing agreements in place?"], "setting_examples": {"Sport": "A club contributes anonymised injury data to a multi-club surveillance study.", "Military and tactical": "A unit takes part in an externally led study with ethical approval.", "Healthcare": "Staff take part in a multi-centre study of shift work and health.", "Corporate and occupational": "The employer works with a university to evaluate its health programme."}}, {"code": "7.3", "group_code": "7", "group": "Research and Knowledge Translation", "ring": "Overarching Aspect", "name": "Evidence-Informed Practice", "description_v0_2": "The processes by which current best evidence is found, appraised and built into protocols and individual decisions.", "prompts": ["How is current evidence found and appraised, and by whom?", "Are protocols referenced, and are they updated when the evidence changes?"], "setting_examples": {"Sport": "The medical team reviews its concussion protocol against each new consensus statement.", "Military and tactical": "Injury prevention guidance for training is updated from systematic reviews.", "Healthcare": "Occupational health protocols cite current guidance and are reviewed on a schedule.", "Corporate and occupational": "Workplace health interventions are chosen on the basis of appraised evidence."}}, {"code": "7.4", "group_code": "7", "group": "Research and Knowledge Translation", "ring": "Overarching Aspect", "name": "Knowledge Dissemination and Translation", "description_v0_2": "Sharing knowledge beyond the service: publication, conference presentation, external teaching and the translation of the service's learning into practice elsewhere.", "prompts": ["Does the service share what it learns, through publication, presentation or external teaching?", "Is its learning taken into practice in other services?"], "setting_examples": {"Sport": "Staff present the club's rehabilitation outcomes at a national conference.", "Military and tactical": "Lessons from deployed medical care are shared with civilian services.", "Healthcare": "The service publishes its evaluation of a staff wellbeing programme.", "Corporate and occupational": "The employer shares its approach to workplace health with others in its sector."}}], "neat": {"name": "Performance Medicine Needs Evaluation and Assessment Tool", "forms": [{"id": "1.1", "name": "Needs Evaluation", "rates": ["need"], "use": "prospective: what does this setting require? Use before service design or commissioning."}, {"id": "1.2", "name": "Service Assessment", "rates": ["provision"], "use": "evaluative: how well does current provision meet need? Use to audit an existing service."}, {"id": "1.3", "name": "Gap Analysis", "rates": ["need", "provision"], "use": "combined: both functions completed together, with the gap computed as need minus provision. Use when reviewing and redesigning a service."}]}, "orientation": [["organisation", "Organisation or service"], ["function", "Function, level, and sport or field"], ["performers", "Performers: who, numbers, level and roles"], ["dates", "Date or dates of assessment"], ["lead", "Lead assessor (name and role)"], ["others", "Other assessors (names and roles)"], ["purpose", "Purpose of, or trigger for, the assessment"], ["previous", "Previous assessment? (yes, no or unknown)"], ["aims", "Aims and objectives"], ["kpis", "Key performance indicators"], ["timeline", "Timeline: near, medium and longer term"], ["existing", "Existing performance medicine components"], ["constraints", "Specific requests or constraints"]], "opspec": {"name": "Performance Medicine Operational Specification", "levels": ["Not in place", "Foundation", "Established", "Advanced"], "compliance": "Statutory, regulatory and professional requirements, including data protection, professional registration and safeguarding, apply at every level; the levels describe maturity beyond compliance with them.", "subs": [{"id": "C1", "name": "Purpose and scope", "instruction": "Define the overarching purpose of this Performance Medicine system and the boundaries of its scope within the organisation.", "fields": ["Mission statement", "Scope (what is included)", "Out of scope (explicit exclusions)"], "maturity": {"Not in place": "No purpose or scope has been agreed for the service", "Foundation": "Informally understood; not documented", "Established": "Documented purpose; clear scope boundaries; known to key staff", "Advanced": "Embedded in strategy; regularly reviewed; communicated across organisation"}}, {"id": "C2", "name": "Population and user group", "instruction": "Define the performers and stakeholders served by this system.", "fields": ["Primary performer group", "Number of performers", "Level and roles", "Secondary user groups (staff, coaches, families)"], "maturity": {"Not in place": "The performers the service is for have not been identified", "Foundation": "Informally known; not formally defined", "Established": "Defined population; roles documented; needs assessment completed", "Advanced": "Dynamic population profiling; stratified needs; reviewed annually"}}, {"id": "C3", "name": "Domain coverage", "instruction": "Summarise the overall domain coverage of the system. Detail is captured in Section B.", "fields": ["Domains with full provision", "Domains with partial or developing provision", "Domains with no provision", "Domains not currently in scope"], "maturity": {"Not in place": "No domain is provided for in a planned way", "Foundation": "Ad hoc provision; significant gaps", "Established": "Core domains covered; gaps identified and planned for", "Advanced": "Comprehensive coverage; all in-scope PMIF domains addressed; gaps monitored"}}, {"id": "C4", "name": "Team structure", "instruction": "Define the composition, roles, and reporting structure of the Performance Medicine team.", "fields": ["Team lead role and title", "Core team members (role and WTE)", "Associated / sessional staff", "Reporting structure", "Inter-professional collaboration arrangements"], "maturity": {"Not in place": "No staff hold a Performance Medicine role", "Foundation": "Single or informal; no defined structure", "Established": "Defined roles; reporting lines established; MDT meetings in place", "Advanced": "Full interdisciplinary team; formalised governance; succession planning"}}, {"id": "C5", "name": "Governance and accountability", "instruction": "Define clinical governance arrangements, accountability structures, and regulatory compliance.", "fields": ["Clinical governance lead", "Accountability framework", "Regulatory registrations and standards", "Safeguarding and duty of care arrangements"], "maturity": {"Not in place": "No one is accountable for the clinical care provided", "Foundation": "No formal governance; ad hoc accountability", "Established": "Clinical lead identified; basic governance in place; policies documented", "Advanced": "Full governance framework; external audit; regular review against professional standards"}}, {"id": "C6", "name": "Information systems", "instruction": "Define the data, record-keeping, and information governance arrangements.", "fields": ["Medical record system", "Performance data platforms", "Information sharing protocols", "GDPR / data protection compliance"], "maturity": {"Not in place": "No records of performers' health or performance are kept", "Foundation": "Paper-based or informal; no integration", "Established": "Electronic records in use; basic data sharing; information governance documented", "Advanced": "Integrated data ecosystem; real-time dashboards; information governance audited"}}, {"id": "C7", "name": "Decision-making pathways", "instruction": "Define the key clinical and operational decision-making processes and pathways.", "fields": ["Return-to-performance pathway", "Referral pathways (internal and external)", "Emergency and acute care pathway", "Mental health and welfare pathway", "Shared decision-making arrangements"], "maturity": {"Not in place": "No pathway exists, and decisions rest with whoever is present", "Foundation": "Informal; case-by-case; not documented", "Established": "Key pathways documented; MDT decision-making; referral pathways clear", "Advanced": "All pathways formalised; shared decision-making embedded; regular review"}}, {"id": "C8", "name": "Evaluation expectations", "instruction": "Define how the system will be monitored, audited, and evaluated.", "fields": ["Key performance indicators", "Audit and quality improvement cycle", "Outcome reporting arrangements", "Review frequency"], "maturity": {"Not in place": "No one is responsible for evaluating the service", "Foundation": "No formal evaluation; outcomes not tracked", "Established": "KPIs defined; annual audit; basic outcome reporting", "Advanced": "Continuous evaluation; external benchmarking; published outcomes"}}, {"id": "C9", "name": "Required resources and enabling conditions", "instruction": "Define the resource requirements and enabling conditions necessary for the system to function as specified.", "fields": ["Workforce requirements", "Facility and equipment requirements", "Budget and financial resources", "Technology and data infrastructure", "Organisational enablers (leadership, culture)"], "maturity": {"Not in place": "No resources are allocated to the service", "Foundation": "Under-resourced; significant gaps; ad hoc", "Established": "Core resources in place; budget allocated; enabling conditions identified", "Advanced": "Fully resourced; strategic investment; enabling conditions optimised"}}], "sectionA": [["organisation", "Organisation or service name"], ["field", "Sport or field"], ["level", "Level of the service (international, national, regional, local, such as a club, unit, department or site, or individual)"], ["lead", "Service lead or responsible person"], ["version", "Document version and date"], ["review", "Review date"], ["purpose", "Purpose of the document (commissioning, governance reference, annual review, service redesign, other)"]], "D1": ["Document owner", "Date of issue", "Version", "Approved by", "Next review date", "Related documents"], "D2": ["Performance medicine lead", "Organisational lead", "Clinical governance lead"]}, "downloads": [{"label": "Form 1.1 (Word)", "href": "downloads/2026_Performance_Medicine_PM_NEAT_Form_1_1_Needs_Evaluation_v0_2.docx"}, {"label": "Form 1.2 (Word)", "href": "downloads/2026_Performance_Medicine_PM_NEAT_Form_1_2_Service_Assessment_v0_2.docx"}, {"label": "Form 1.3 (Word)", "href": "downloads/2026_Performance_Medicine_PM_NEAT_Form_1_3_Gap_Analysis_v0_2.docx"}, {"label": "Form 2 PM-OpSpec (Word)", "href": "downloads/2026_Performance_Medicine_PM_OpSpec_Form_2_Operational_Specification_v0_2.docx"}, {"label": "Scoring workbook (Excel)", "href": "downloads/2026_Performance_Medicine_PM_NEAT_Scoring_Workbook_v0_2.xlsx"}, {"label": "User guide (Word)", "href": "downloads/2026_Performance_Medicine_PM_Tools_User_Guide_v0_2.docx"}]};
+const PAGE_URL = 'https://andrewhallorthosports.github.io/performance-medicine/tools/';
+const SCHEMA = 'pm-tools/0.2';
+const COLOURS = { '1': 'var(--s1)', '2': 'var(--s2)', '3': 'var(--s3)', '4': 'var(--s4)', '5': 'var(--oa)', '6': 'var(--oa)', '7': 'var(--oa)' };
+const FORMS = [...SPEC.neat.forms.map(f => ({ id: f.id, label: `Form ${f.id} ${f.name}` })), { id: '2', label: 'Form 2 OpSpec' }];
+const GROUPS = [];
+for (const d of SPEC.domains) { let g = GROUPS.find(x => x.code === d.group_code); if (!g) GROUPS.push(g = { code: d.group_code, name: d.group, ring: d.ring, domains: [] }); g.domains.push(d); }
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const $ = id => document.getElementById(id);
+
+function blank() {
+  return { schema: SCHEMA, form: '1.3', setting: '', saved: null,
+    neat: { orientation: {}, ratings: {}, actions: Array.from({ length: 5 }, () => ({ domain: '', action: '', lead: '', timeline: '' })),
+      narrative: '', signoff: { name: '', date: '' }, observations: {} },
+    opspec: { A: {}, B: {}, sub: {}, D1: {}, D2: {} } };
+}
+let state = blank(), dirty = false;
+const touch = () => { dirty = true; };
+window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+// ---------------------------------------------------------------- chrome
+$('statusLabel').textContent = SPEC.labels.status;
+$('orgLabel').textContent = SPEC.labels.organisation;
+$('footOrg').textContent = `${SPEC.labels.status}. ${SPEC.labels.organisation}.`;
+$('footLic').innerHTML = `Licence: <a href="${SPEC.licence.url}" rel="license">${esc(SPEC.licence.name)} (${esc(SPEC.licence.short)})</a>. The forms may be shared unchanged, for non-commercial use, with attribution.`;
+$('footGa').textContent = SPEC.notice;
+$('footUrl').textContent = PAGE_URL;
+for (const s of [''].concat(SPEC.settings, ['Other'])) { const o = document.createElement('option'); o.value = s; o.textContent = s || 'Choose a setting'; $('setting').appendChild(o); }
+$('setting').addEventListener('change', e => { state.setting = e.target.value; touch(); render(); });
+function renderFormSeg() {
+  $('formSeg').innerHTML = FORMS.map(f => `<button type="button" data-form="${f.id}" aria-pressed="${state.form === f.id}">${esc(f.label)}</button>`).join('');
+  $('formSeg').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { state.form = b.dataset.form; touch(); render(); window.scrollTo(0, 0); }));
+}
+
+// ---------------------------------------------------------------- shared pieces
+const field = (path, label, value, kind = 'text') => `<div class="lab"><label for="f_${path}">${esc(label)}</label></div><div>${
+  kind === 'area' ? `<textarea id="f_${path}" data-path="${path}">${esc(value)}</textarea>` : `<input type="${kind}" id="f_${path}" data-path="${path}" value="${esc(value)}">`}</div>`;
+function getPath(p) { return p.split('.').reduce((o, k) => (o == null ? undefined : o[k]), state); }
+function setPath(p, v) { const ks = p.split('.'); let o = state; ks.slice(0, -1).forEach(k => { if (o[k] == null) o[k] = {}; o = o[k]; }); o[ks.at(-1)] = v; }
+function bindInputs(root) {
+  root.querySelectorAll('[data-path]').forEach(el => el.addEventListener('input', () => { setPath(el.dataset.path, el.value); touch(); if (el.dataset.live) refreshSummary(); }));
+}
+const ratingSeg = (code, key) => {
+  const v = (state.neat.ratings[code] || {})[key];
+  return `<div class="seg" role="group" aria-label="${key === 'need' ? 'Need' : 'Provision'} for ${code}">${['N/A', 0, 1, 2, 3].map(x =>
+    `<button type="button" data-code="${code}" data-key="${key}" data-val="${x}" aria-pressed="${v === x}">${x}</button>`).join('')}</div>`;
+};
+function guideTable(keys) {
+  let h = '<div class="tablewrap"><table class="guide"><thead><tr><th>Rating</th><th>Label</th><th>Descriptor</th></tr></thead><tbody>';
+  for (const k of keys) {
+    h += `<tr><th colspan="3">${k === 'need' ? 'Need' : 'Provision'}</th></tr><tr><td>N/A</td><td>${esc(SPEC.scales.na.label)}</td><td>${esc(SPEC.scales.na.descriptor)}</td></tr>`;
+    h += SPEC.scales[k].map(l => `<tr><td>${l.score}</td><td>${esc(l.label)}</td><td>${esc(l.descriptor)}</td></tr>`).join('');
+  }
+  return h + '</tbody></table></div>';
+}
+
+// ---------------------------------------------------------------- PM-NEAT
+function neatView() {
+  const f = SPEC.neat.forms.find(x => x.id === state.form), both = f.rates.length === 2;
+  const o = state.neat.orientation;
+  let h = `<h2>${esc(SPEC.neat.name)}: Form ${f.id}, ${esc(f.name)}</h2><p class="note">${esc(f.use.charAt(0).toUpperCase() + f.use.slice(1))}</p>`;
+  h += `<div class="card"><p style="margin:0 0 8px">Rate ${both ? 'anticipated need and current provision' : f.rates[0] === 'need' ? 'anticipated need' : 'current provision'} in each domain from 0 to 3, using the descriptors below and the evidence prompts under each domain. Rate a domain N/A only where it does not apply to the setting at all${f.rates.includes('need') ? '; a domain that applies but needs nothing at present is rated 0 for need' : ''}${both ? ', and N/A applies to need and provision together' : ''}. A domain counts as rated once every rating this form asks for is entered. ${esc(SPEC.performers)}</p>${guideTable(f.rates)}${both ? `<p class="levels">Gap is need minus provision: ${SPEC.gap.bands.map(b => `${b.band}, ${b.rule} (${b.meaning})`).join('; ')}.</p>` : ''}</div>`;
+  h += '<h2>Orientation</h2><div class="card grid2">' + SPEC.orientation.map(([k, lab]) => field(`neat.orientation.${k}`, lab, o[k], 'area')).join('') + '</div>';
+  for (const g of GROUPS) {
+    h += `<div class="sechead" style="--c:${COLOURS[g.code]}"><h2>Section ${g.code}: ${esc(g.name)}</h2><span>${g.ring === 'Quadrant' ? 'Quadrant' : 'Overarching Aspect'}</span></div>`;
+    for (const d of g.domains) {
+      const ex = state.setting && state.setting !== 'Other' ? [[state.setting, d.setting_examples[state.setting]]] : Object.entries(d.setting_examples);
+      h += `<div class="card dom" style="--c:${COLOURS[g.code]}"><div class="head"><span class="code">${d.code}</span><span class="dname">${esc(d.name)}</span></div>
+        <p class="desc">${esc(d.description_v0_2)}</p>
+        <details><summary>Evidence to look for</summary><ul>${d.prompts.map(p => `<li>${esc(p)}</li>`).join('')}</ul></details>
+        <div class="example">${ex.map(([s, t]) => `<b>${esc(s)}:</b> ${esc(t)}`).join('<br>')}</div>
+        <div class="rates">${f.rates.map(k => `<div class="rate">${k === 'need' ? 'Need' : 'Provision'} ${ratingSeg(d.code, k)}</div>`).join('')}
+          ${both ? `<div class="rate">Gap <span class="chip" id="chip_${d.code}"></span></div>` : ''}<span class="warn" id="warn_${d.code}"></span></div>
+        <textarea aria-label="Notes for ${d.code}" placeholder="Notes and evidence" data-path="neat.ratings.${d.code}.notes">${esc((state.neat.ratings[d.code] || {}).notes)}</textarea></div>`;
+    }
+  }
+  h += '<h2>Synthesis and summary</h2><div id="summary"></div>';
+  h += '<h2>Priority actions</h2><div class="tablewrap"><table><thead><tr><th class="n">No.</th><th>Domain</th><th>Action required</th><th>Lead</th><th>Timeline</th></tr></thead><tbody>' +
+    state.neat.actions.map((a, i) => `<tr><td class="n">${i + 1}</td>${['domain', 'action', 'lead', 'timeline'].map(k => `<td><input type="text" aria-label="${k} ${i + 1}" data-path="neat.actions.${i}.${k}" value="${esc(a[k])}"></td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+  h += '<h2>Narrative conclusion and recommendations</h2><textarea style="min-height:160px" aria-label="Narrative conclusion" data-path="neat.narrative">' + esc(state.neat.narrative) + '</textarea>';
+  h += '<h2>Sign-off</h2><div class="card grid2">' + field('neat.signoff.name', 'Lead assessor name', state.neat.signoff.name) + field('neat.signoff.date', 'Date', state.neat.signoff.date, 'date') + '</div>';
+  return h;
+}
+function summaryTable(sum, form) {
+  const both = form === '1.3', need = form !== '1.2', prov = form !== '1.1';
+  const cols = ['Section', 'Domains rated', 'Not yet rated'].concat(need ? ['Total need'] : [], prov ? ['Total provision'] : [], both ? ['Unmet need', 'Surplus', 'Priority rating'] : []);
+  const cells = (r, name) => [name, r.rated, r.unrated].concat(need ? [r.need] : [], prov ? [r.provision] : [], both ? [r.unmet, r.surplus, `<span class="chip ${r.rag}">${r.rag}</span>`] : []);
+  let h = '<div class="tablewrap"><table><thead><tr>' + cols.map((c, i) => `<th${i ? ' class="n"' : ''}>${c}</th>`).join('') + '</tr></thead><tbody>';
+  for (const r of sum.rows) h += '<tr>' + cells(r, `${r.group_code} ${esc(GROUPS.find(g => g.code === r.group_code).name)}`).map((c, i) => `<td${i ? ' class="n"' : ''}>${c}</td>`).join('') + '</tr>';
+  h += '<tr>' + cells(sum.all, '<b>All sections</b>').map((c, i) => `<td${i ? ' class="n"' : ''}><b>${c}</b></td>`).join('') + '</tr></tbody></table></div>';
+  h += `<p class="note">${both ? 'Unmet need sums positive gaps; surplus sums provision beyond need and never offsets unmet need; the priority rating is that of the worst domain in the section, and the worst section for all sections.' : 'Domains rated counts those with every rating entered; domains rated N/A are excluded from every count and total.'}</p>`;
+  return h;
+}
+function refreshSummary() {
+  if (state.form === '2') return;
+  const sum = PMScore.summarise(SPEC.domains, state.neat.ratings, state.form);
+  const el = $('summary'); if (el) el.innerHTML = summaryTable(sum, state.form);
+  for (const d of SPEC.domains) {
+    const x = state.neat.ratings[d.code] || {};
+    const chip = $('chip_' + d.code);
+    if (chip) { const g = PMScore.gap(x.need, x.provision), b = PMScore.band(g); chip.className = 'chip ' + (b || ''); chip.textContent = g === null ? 'not rated' : `${g > 0 ? '+' : ''}${g} ${b}`; }
+  }
+}
+function bindRatings(root) {
+  root.querySelectorAll('button[data-code]').forEach(b => b.addEventListener('click', () => {
+    const { code, key } = b.dataset, val = b.dataset.val === 'N/A' ? 'N/A' : Number(b.dataset.val);
+    const r = state.neat.ratings[code] = state.neat.ratings[code] || {};
+    r[key] = r[key] === val ? undefined : val;                                    // a second click clears the rating
+    const other = key === 'need' ? 'provision' : 'need';
+    if (state.form === '1.3') {                                                   // N/A applies to both (T10)
+      if (r[key] === 'N/A') r[other] = 'N/A'; else if (r[other] === 'N/A') r[other] = undefined;
+    }
+    root.querySelectorAll(`button[data-code="${code}"]`).forEach(x => x.setAttribute('aria-pressed', String((r[x.dataset.key]) === (x.dataset.val === 'N/A' ? 'N/A' : Number(x.dataset.val)))));
+    touch(); refreshSummary();
+  }));
+}
+
+// ---------------------------------------------------------------- PM-OpSpec
+function opspecView() {
+  const O = state.opspec, lv = SPEC.opspec.levels;
+  let h = `<h2>${esc(SPEC.opspec.name)}: Form 2</h2><p class="note">A live commissioning document and governance reference, completed by the service's senior performance medicine lead and reviewed at least annually. Each of the nine sub-components is placed at one of four maturity levels, which describe the service and are not scored.</p>`;
+  h += '<h2>Section A: Setting and context</h2><div class="card grid2">' + SPEC.opspec.sectionA.map(([k, lab]) => field(`opspec.A.${k}`, lab, O.A[k])).join('') + '</div>';
+  h += `<h2>Section B: PMIF domain coverage</h2><p class="note">For each domain, describe the provision, confirm whether it is in scope and note any local adaptation. <button class="btn noprint" type="button" id="btnPrefill">Pre-fill from the PM-NEAT ratings</button> (uses the Form 1.3 ratings entered here or opened from a saved file; it replaces the ratings, the in-scope column and the C3 lists, and keeps every description and note you have typed).</p>`;
+  h += '<div class="tablewrap"><table><thead><tr><th>Domain</th><th>Description of provision in this service</th><th class="n">In scope?</th><th class="n">PM-NEAT need</th><th class="n">PM-NEAT provision</th><th>Notes and local adaptation</th></tr></thead><tbody>';
+  for (const g of GROUPS) {
+    h += `<tr><th colspan="6" style="border-left:4px solid ${COLOURS[g.code]}">${g.code} ${esc(g.name)}</th></tr>`;
+    for (const d of g.domains) {
+      const b = O.B[d.code] || {};
+      h += `<tr><td><span class="code">${d.code}</span> ${esc(d.name)}</td><td><textarea aria-label="Provision ${d.code}" data-path="opspec.B.${d.code}.description">${esc(b.description)}</textarea></td>
+        <td class="n"><select aria-label="In scope ${d.code}" data-path="opspec.B.${d.code}.in_scope">${['', 'Yes', 'No'].map(x => `<option${b.in_scope === x ? ' selected' : ''}>${x}</option>`).join('')}</select></td>
+        <td class="n">${esc(b.need ?? '')}</td><td class="n">${esc(b.provision ?? '')}</td>
+        <td><textarea aria-label="Notes ${d.code}" data-path="opspec.B.${d.code}.notes">${esc(b.notes)}</textarea></td></tr>`;
+    }
+  }
+  h += '</tbody></table></div><h2>Section C: Operational structure</h2>';
+  for (const c of SPEC.opspec.subs) {
+    const s = O.sub[c.id] = O.sub[c.id] || { fields: {}, level: '' };
+    h += `<div class="card"><h3 style="margin-top:0">${c.id} ${esc(c.name)}</h3><p class="note">${esc(c.instruction)}</p><div class="grid2">` +
+      c.fields.map((fl, i) => field(`opspec.sub.${c.id}.fields.${i}`, fl, s.fields[i], 'area')).join('') +
+      `<div class="lab"><label for="lv_${c.id}"><b>Current maturity level</b></label></div><div><select id="lv_${c.id}" data-path="opspec.sub.${c.id}.level">${[''].concat(lv).map(x => `<option${s.level === x ? ' selected' : ''}>${x}</option>`).join('')}</select>
+      <p class="levels" id="lvd_${c.id}">${esc(s.level ? c.maturity[s.level] : '')}</p></div></div></div>`;
+  }
+  h += `<h3>Maturity model reference</h3><p class="note">${esc(SPEC.opspec.compliance)}</p>` + '<div class="tablewrap"><table><thead><tr><th>Sub-component</th>' + lv.map(l => `<th>${l}</th>`).join('') + '</tr></thead><tbody>' +
+    SPEC.opspec.subs.map(c => `<tr><td>${c.id} ${esc(c.name)}</td>${lv.map(l => `<td>${esc(c.maturity[l])}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+  h += '<h2>Section D: Document control and sign-off</h2><h3>D1 Document control</h3><div class="card grid2">' +
+    SPEC.opspec.D1.map((lab, i) => field(`opspec.D1.${i}`, lab, O.D1[i])).join('') + '</div><h3>D2 Sign-off</h3><div class="card grid2">' +
+    SPEC.opspec.D2.map((lab, i) => field(`opspec.D2.${i}`, `${lab}: name and date`, O.D2[i])).join('') + '</div>';
+  return h;
+}
+function prefillOpSpec() {
+  const B = state.opspec.B, R = state.neat.ratings;
+  for (const d of SPEC.domains) {
+    const x = R[d.code] || {}, b = B[d.code] = B[d.code] || {};
+    b.need = x.need; b.provision = x.provision;
+    b.in_scope = (x.need === 'N/A' || x.provision === 'N/A') ? 'No' : (x.need !== undefined || x.provision !== undefined) ? 'Yes' : '';
+  }
+  const cov = PMScore.coverage(SPEC.domains, R), c3 = state.opspec.sub.C3 = state.opspec.sub.C3 || { fields: {}, level: '' };
+  c3.fields[0] = cov.full.join(', '); c3.fields[1] = cov.partial.join(', '); c3.fields[2] = cov.none.join(', '); c3.fields[3] = cov.out.join(', ');
+  touch(); render();
+}
+
+// ---------------------------------------------------------------- report (T21)
+function buildReport() {
+  const f = SPEC.neat.forms.find(x => x.id === state.form); if (!f) return '';
+  const o = state.neat.orientation, sum = PMScore.summarise(SPEC.domains, state.neat.ratings, state.form), both = f.rates.length === 2;
+  let h = `<p class="eyebrow">${esc(SPEC.labels.status)}  |  ${esc(SPEC.labels.organisation)}</p><h1>${esc(SPEC.neat.name)}</h1><h2 style="margin-top:0">Form ${f.id}, ${esc(f.name)}: report</h2>`;
+  h += `<table><tr><th style="width:32%">Setting</th><td>${esc(state.setting)}</td></tr>` + SPEC.orientation.filter(([k]) => ['organisation', 'setting', 'performers', 'dates', 'lead', 'others', 'purpose'].includes(k))
+    .map(([k, lab]) => `<tr><th style="width:32%">${esc(lab)}</th><td>${esc(k === 'setting' ? (o[k] || state.setting) : o[k])}</td></tr>`).join('') + '</table>';
+  h += '<h2>Summary</h2>' + summaryTable(sum, state.form);
+  h += '<h2 class="pagebreak">Domain ratings</h2><table><thead><tr><th>Code</th><th>Domain</th>' + f.rates.map(k => `<th class="n">${k === 'need' ? 'Need' : 'Provision'}</th>`).join('') + (both ? '<th class="n">Gap</th><th class="n">Band</th>' : '') + '<th>Notes</th></tr></thead><tbody>';
+  for (const d of SPEC.domains) {
+    const x = state.neat.ratings[d.code] || {}, g = PMScore.gap(x.need, x.provision), b = PMScore.band(g);
+    h += `<tr><td>${d.code}</td><td>${esc(d.name)}</td>${f.rates.map(k => `<td class="n">${esc(x[k] ?? '')}</td>`).join('')}${both ? `<td class="n">${g ?? ''}</td><td class="n">${b ? `<span class="chip ${b}">${b}</span>` : ''}</td>` : ''}<td>${esc(x.notes)}</td></tr>`;
+  }
+  h += '</tbody></table><h2>Priority actions</h2><table><thead><tr><th>No.</th><th>Domain</th><th>Action required</th><th>Lead</th><th>Timeline</th></tr></thead><tbody>' +
+    state.neat.actions.map((a, i) => `<tr><td>${i + 1}</td><td>${esc(a.domain)}</td><td>${esc(a.action)}</td><td>${esc(a.lead)}</td><td>${esc(a.timeline)}</td></tr>`).join('') + '</tbody></table>';
+  h += `<h2>Narrative conclusion and recommendations</h2><p style="white-space:pre-wrap">${esc(state.neat.narrative)}</p><h2>Sign-off</h2><p>Lead assessor: ${esc(state.neat.signoff.name)}  |  Date: ${esc(state.neat.signoff.date)}</p>`;
+  h += `<p class="note">${esc(SPEC.labels.status)}. ${esc(SPEC.labels.organisation)}. ${esc(SPEC.licence.short)}. ${esc(PAGE_URL)}</p>`;
+  return h;
+}
+
+// ---------------------------------------------------------------- files
+function fileName() {
+  const org = (state.form === '2' ? state.opspec.A.organisation : state.neat.orientation.organisation) || 'unnamed';
+  const tag = state.form === '2' ? 'PM-OpSpec' : `PM-NEAT_Form_${state.form.replace('.', '-')}`;
+  return `${tag}_${org.replace(/[^A-Za-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 40)}_${new Date().toISOString().slice(0, 10)}.json`;
+}
+$('btnSave').addEventListener('click', () => {
+  state.saved = new Date().toISOString();
+  const blob = new Blob([JSON.stringify(state, null, 1)], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fileName(); document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); dirty = false;
+});
+$('btnOpen').addEventListener('click', () => $('fileIn').click());
+$('fileIn').addEventListener('change', e => {
+  const file = e.target.files[0]; if (!file) return;
+  file.text().then(t => {
+    let d; try { d = JSON.parse(t); } catch (err) { alertBox('This file could not be read as a PM-NEAT or PM-OpSpec file.'); return; }
+    if (d.schema !== SCHEMA) { alertBox(`This file was not saved by pilot version 0.2 of the tool (${esc(d.schema || 'unknown format')}).`); return; }
+    const b = blank(); state = Object.assign(b, d, { neat: Object.assign(b.neat, d.neat), opspec: Object.assign(b.opspec, d.opspec) });
+    dirty = false; render();
+  });
+  e.target.value = '';
+});
+function alertBox(msg) { const el = document.createElement('div'); el.className = 'card'; el.setAttribute('role', 'alert'); el.innerHTML = `<b>${msg}</b>`; $('app').prepend(el); window.scrollTo(0, 0); }
+$('btnReport').addEventListener('click', () => {
+  if (state.form === '2') { printFull(); return; }
+  $('report').innerHTML = buildReport(); document.body.classList.add('print-report'); window.print(); document.body.classList.remove('print-report');
+});
+function printFull() { document.querySelectorAll('details').forEach(d => d.open = true); window.print(); }
+$('btnFull').addEventListener('click', printFull);
+$('btnNew').addEventListener('click', () => {
+  if (dirty && !window.confirm('Clear every entry? Anything not saved to a file will be lost.')) return;
+  state = blank(); dirty = false; render();
+});
+
+// ---------------------------------------------------------------- render
+function render() {
+  renderFormSeg(); $('setting').value = state.setting || '';
+  $('btnReport').textContent = state.form === '2' ? 'Print document' : 'Print report';
+  $('btnFull').classList.toggle('hidden', state.form === '2');
+  const app = $('app');
+  app.innerHTML = state.form === '2' ? opspecView() : neatView();
+  bindInputs(app); bindRatings(app); refreshSummary();
+  const pf = $('btnPrefill'); if (pf) pf.addEventListener('click', prefillOpSpec);
+  app.querySelectorAll('select[id^="lv_"]').forEach(s => s.addEventListener('change', () => {
+    const c = SPEC.opspec.subs.find(x => 'lv_' + x.id === s.id); $('lvd_' + c.id).textContent = s.value ? c.maturity[s.value] : '';
+  }));
+}
+const dl = document.createElement('p'); dl.className = 'dl noprint';
+dl.innerHTML = '<b>Downloads:</b> ' + SPEC.downloads.map(d => `<a href="${esc(d.href)}" download>${esc(d.label)}</a>`).join('');
+$('leadText').after(dl);
+const GATE = 3370059793;
+function fnv(t) { let h = 0x811c9dc5; for (const ch of new TextEncoder().encode(t)) { h ^= ch; h = Math.imul(h, 0x01000193) >>> 0; } return h; }
+$('gateForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (fnv('pm-tools:' + $('gateIn').value.trim().toLowerCase()) === GATE) { $('gate').remove(); document.body.classList.remove('locked'); }
+  else { $('gateMsg').textContent = 'That passcode is not recognised.'; $('gateIn').select(); }
+});
+render();
+</script>
+</body>
+</html>
